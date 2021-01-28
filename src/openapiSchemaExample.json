@@ -1,1103 +1,2541 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-      "title": "Swagger Petstore",
-      "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
-      "termsOfService": "http://swagger.io/terms/",
-      "contact": {
-        "email": "apiteam@swagger.io"
-      },
-      "license": {
-        "name": "Apache 2.0",
-        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-      },
-      "version": "1.0.0"
-    },
-    "externalDocs": {
-      "description": "Find out more about Swagger",
-      "url": "http://swagger.io"
-    },
-    "servers": [
-      {
-        "url": "https://petstore.swagger.io/v2"
-      },
-      {
-        "url": "http://petstore.swagger.io/v2"
-      }
-    ],
-    "tags": [
-      {
-        "name": "pet",
-        "description": "Everything about your Pets",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "http://swagger.io"
-        }
-      },
-      {
-        "name": "store",
-        "description": "Access to Petstore orders"
-      },
-      {
-        "name": "user",
-        "description": "Operations about user",
-        "externalDocs": {
-          "description": "Find out more about our store",
-          "url": "http://swagger.io"
-        }
-      }
-    ],
+    "x-generator": "NSwag v13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))",
+    "openapi": "3.0.0",
+    "info": { "title": "Swagger", "version": "1.0.0" },
+    "servers": [{ "url": "/" }, { "url": "indexing-api-test.ke-la.private:5000" }, { "url": "" }],
     "paths": {
-      "/pet": {
-        "put": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "Update an existing pet",
-          "operationId": "updatePet",
-          "requestBody": {
-            "description": "Pet object that needs to be added to the store",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pet"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pet"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "400": {
-              "description": "Invalid ID supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "Pet not found",
-              "content": {}
-            },
-            "405": {
-              "description": "Validation exception",
-              "content": {}
+        "/healthz": {
+            "get": {
+                "tags": ["Default"],
+                "operationId": "Default_Alive",
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "string" } } } } }
             }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ],
-          "x-codegen-request-body-name": "body"
         },
-        "post": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "Add a new pet to the store",
-          "operationId": "addPet",
-          "requestBody": {
-            "description": "Pet object that needs to be added to the store",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pet"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Pet"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "405": {
-              "description": "Invalid input",
-              "content": {}
+        "/health": {
+            "get": {
+                "tags": ["Default"],
+                "operationId": "Default_Alive2",
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "string" } } } } }
             }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ],
-          "x-codegen-request-body-name": "body"
-        }
-      },
-      "/pet/findByStatus": {
-        "get": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "Finds Pets by status",
-          "description": "Multiple status values can be provided with comma separated strings",
-          "operationId": "findPetsByStatus",
-          "parameters": [
-            {
-              "name": "status",
-              "in": "query",
-              "description": "Status values that need to be considered for filter",
-              "required": true,
-              "style": "form",
-              "explode": true,
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "default": "available",
-                  "enum": [
-                    "available",
-                    "pending",
-                    "sold"
-                  ]
-                }
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/xml": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Pet"
-                    }
-                  }
-                },
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Pet"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid status value",
-              "content": {}
-            }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
-      },
-      "/pet/findByTags": {
-        "get": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "Finds Pets by tags",
-          "description": "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing.",
-          "operationId": "findPetsByTags",
-          "parameters": [
-            {
-              "name": "tags",
-              "in": "query",
-              "description": "Tags to filter by",
-              "required": true,
-              "style": "form",
-              "explode": true,
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/xml": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Pet"
-                    }
-                  }
-                },
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Pet"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid tag value",
-              "content": {}
-            }
-          },
-          "deprecated": true,
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
-      },
-      "/pet/{petId}": {
-        "get": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "Find pet by ID",
-          "description": "Returns a single pet",
-          "operationId": "getPetById",
-          "parameters": [
-            {
-              "name": "petId",
-              "in": "path",
-              "description": "ID of pet to return",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/xml": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Pet"
-                  }
-                },
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Pet"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid ID supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "Pet not found",
-              "content": {}
-            }
-          },
-          "security": [
-            {
-              "api_key": []
-            }
-          ]
         },
-        "post": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "Updates a pet in the store with form data",
-          "operationId": "updatePetWithForm",
-          "parameters": [
-            {
-              "name": "petId",
-              "in": "path",
-              "description": "ID of pet that needs to be updated",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int64"
-              }
+        "/alive": {
+            "get": {
+                "tags": ["Default"],
+                "operationId": "Default_Alive3",
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "string" } } } } }
             }
-          ],
-          "requestBody": {
-            "content": {
-              "application/x-www-form-urlencoded": {
-                "schema": {
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "description": "Updated name of the pet"
-                    },
-                    "status": {
-                      "type": "string",
-                      "description": "Updated status of the pet"
+        },
+        "/myenv": {
+            "get": {
+                "tags": ["Default"],
+                "operationId": "Default_MyEnv",
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "string" } } } } }
+            }
+        },
+        "/CrawlerMonitor/Types": {
+            "get": {
+                "tags": ["CrawlerMonitor"],
+                "operationId": "CrawlerMonitor_GetTypes",
+                "responses": {
+                    "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/TypesForMonitor" } } } }
+                }
+            }
+        },
+        "/CrawlerMonitor/Tabs": {
+            "post": {
+                "tags": ["CrawlerMonitor"],
+                "operationId": "CrawlerMonitor_GetTabs",
+                "requestBody": {
+                    "x-name": "crawler",
+                    "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetTabsReq" } } },
+                    "required": true,
+                    "x-position": 1
+                },
+                "responses": {
+                    "200": { "description": "", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "string" } } } } }
+                }
+            }
+        },
+        "/CrawlerMonitor/Templates": {
+            "get": {
+                "tags": ["CrawlerMonitor"],
+                "operationId": "CrawlerMonitor_GetTemplates",
+                "responses": {
+                    "200": { "description": "", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "string" } } } } }
+                }
+            }
+        },
+        "/CrawlerMonitor/Template": {
+            "post": {
+                "tags": ["CrawlerMonitor"],
+                "operationId": "CrawlerMonitor_GetTemplate",
+                "parameters": [{ "name": "templateName", "in": "query", "schema": { "type": "string", "nullable": true }, "x-position": 1 }],
+                "requestBody": {
+                    "x-name": "defaultValues",
+                    "content": { "application/json": { "schema": { "type": "object", "additionalProperties": {} } } },
+                    "required": true,
+                    "x-position": 2
+                },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": {} } } } }
+            }
+        },
+        "/CrawlingTasks/RenewAllFailed": {
+            "post": {
+                "tags": ["CrawlingTasks"],
+                "operationId": "CrawlingTasks_RenewAll",
+                "parameters": [{ "name": "crawlerTitle", "in": "query", "schema": { "type": "string", "nullable": true }, "x-position": 1 }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "boolean" } } } } }
+            }
+        },
+        "/IndexerAuthCache": {
+            "delete": {
+                "tags": ["IndexerAuthCache"],
+                "operationId": "IndexerAuthCache_DeleteCache",
+                "parameters": [{ "name": "crawlerTitle", "in": "query", "schema": { "type": "string", "nullable": true }, "x-position": 1 }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "boolean" } } } } }
+            }
+        },
+        "/IndexerAuthCache/StateByCrawler": {
+            "delete": {
+                "tags": ["IndexerAuthCache"],
+                "operationId": "IndexerAuthCache_DeleteStateByCrawler",
+                "parameters": [{ "name": "crawlerTitle", "in": "query", "schema": { "type": "string", "nullable": true }, "x-position": 1 }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "boolean" } } } } }
+            }
+        },
+        "/IndexerAuthCache/StateByType": {
+            "delete": {
+                "tags": ["IndexerAuthCache"],
+                "operationId": "IndexerAuthCache_DeleteStateByType",
+                "parameters": [{ "name": "crawlerType", "in": "query", "schema": { "$ref": "#/components/schemas/CrawlerType" }, "x-position": 1 }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "boolean" } } } } }
+            }
+        },
+        "/PurchasedBots/upload": {
+            "post": {
+                "tags": ["PurchasedBots"],
+                "operationId": "PurchasedBots_UploadBot",
+                "requestBody": {
+                    "x-name": "input",
+                    "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BotUploaderInput" } } },
+                    "required": true,
+                    "x-position": 1
+                },
+                "responses": {
+                    "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BotParserInput" } } } }
+                }
+            }
+        },
+        "/PurchasedBots/parse": {
+            "post": {
+                "tags": ["PurchasedBots"],
+                "operationId": "PurchasedBots_ParseBot",
+                "requestBody": {
+                    "x-name": "input",
+                    "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BotParserInput" } } },
+                    "required": true,
+                    "x-position": 1
+                },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "boolean" } } } } }
+            }
+        },
+        "/PurchasedBots/parseAndUpload": {
+            "post": {
+                "tags": ["PurchasedBots"],
+                "operationId": "PurchasedBots_ParseAndUpload",
+                "requestBody": {
+                    "x-name": "input",
+                    "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BotUploaderInput" } } },
+                    "required": true,
+                    "x-position": 1
+                },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "boolean" } } } } }
+            }
+        },
+        "/QueueTasks/RequeueFailes": {
+            "post": {
+                "tags": ["QueueTasks"],
+                "operationId": "QueueTasks_RequeueFailes",
+                "parameters": [
+                    {
+                        "name": "index",
+                        "in": "query",
+                        "schema": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/ElasticsearchIndex" }] },
+                        "x-position": 1
                     }
-                  }
-                }
-              }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "string" } } } } }
             }
-          },
-          "responses": {
-            "405": {
-              "description": "Invalid input",
-              "content": {}
-            }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
         },
-        "delete": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "Deletes a pet",
-          "operationId": "deletePet",
-          "parameters": [
-            {
-              "name": "api_key",
-              "in": "header",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "name": "petId",
-              "in": "path",
-              "description": "Pet id to delete",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          ],
-          "responses": {
-            "400": {
-              "description": "Invalid ID supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "Pet not found",
-              "content": {}
-            }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
-      },
-      "/pet/{petId}/uploadImage": {
-        "post": {
-          "tags": [
-            "pet"
-          ],
-          "summary": "uploads an image",
-          "operationId": "uploadFile",
-          "parameters": [
-            {
-              "name": "petId",
-              "in": "path",
-              "description": "ID of pet to update",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "multipart/form-data": {
-                "schema": {
-                  "properties": {
-                    "additionalMetadata": {
-                      "type": "string",
-                      "description": "Additional data to pass to server"
-                    },
-                    "file": {
-                      "type": "string",
-                      "description": "file to upload",
-                      "format": "binary"
+        "/RadarkManualIndexDataUploader": {
+            "post": {
+                "tags": ["RadarkManualIndexDataUploader"],
+                "operationId": "RadarkManualIndexDataUploader_FunctionHandler",
+                "requestBody": {
+                    "x-name": "req",
+                    "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RadarkManualIndexDataUploaderReq" } } },
+                    "required": true,
+                    "x-position": 1
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": { "application/json": { "schema": { "type": "array", "items": { "type": "integer", "format": "int64" } } } }
                     }
-                  }
                 }
-              }
             }
-          },
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ApiResponse"
-                  }
-                }
-              }
+        },
+        "/RadarkManualIndexDataUploader/Report": {
+            "post": {
+                "tags": ["RadarkManualIndexDataUploader"],
+                "operationId": "RadarkManualIndexDataUploader_ReportData",
+                "requestBody": {
+                    "x-name": "req",
+                    "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ReportDataReq" } } },
+                    "required": true,
+                    "x-position": 1
+                },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "type": "integer", "format": "int64" } } } } }
             }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
-      },
-      "/store/inventory": {
-        "get": {
-          "tags": [
-            "store"
-          ],
-          "summary": "Returns pet inventories by status",
-          "description": "Returns a map of status codes to quantities",
-          "operationId": "getInventory",
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "integer",
-                      "format": "int32"
+        },
+        "/RadarkMetadataExtractor": {
+            "post": {
+                "tags": ["RadarkMetadataExtractor"],
+                "operationId": "RadarkMetadataExtractor_FunctionHandler",
+                "requestBody": {
+                    "x-name": "input",
+                    "content": { "application/json": { "schema": { "type": "object", "additionalProperties": { "type": "string" } } } },
+                    "required": true,
+                    "x-position": 1
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": { "type": "array", "items": { "$ref": "#/components/schemas/ExtractedItemBase" } }
+                                }
+                            }
+                        }
                     }
-                  }
                 }
-              }
             }
-          },
-          "security": [
-            {
-              "api_key": []
-            }
-          ]
         }
-      },
-      "/store/order": {
-        "post": {
-          "tags": [
-            "store"
-          ],
-          "summary": "Place an order for a pet",
-          "operationId": "placeOrder",
-          "requestBody": {
-            "description": "order placed for purchasing the pet",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/Order"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/xml": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Order"
-                  }
-                },
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Order"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid Order",
-              "content": {}
-            }
-          },
-          "x-codegen-request-body-name": "body"
-        }
-      },
-      "/store/order/{orderId}": {
-        "get": {
-          "tags": [
-            "store"
-          ],
-          "summary": "Find purchase order by ID",
-          "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
-          "operationId": "getOrderById",
-          "parameters": [
-            {
-              "name": "orderId",
-              "in": "path",
-              "description": "ID of pet that needs to be fetched",
-              "required": true,
-              "schema": {
-                "maximum": 10,
-                "minimum": 1,
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/xml": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Order"
-                  }
-                },
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Order"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid ID supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "Order not found",
-              "content": {}
-            }
-          }
-        },
-        "delete": {
-          "tags": [
-            "store"
-          ],
-          "summary": "Delete purchase order by ID",
-          "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
-          "operationId": "deleteOrder",
-          "parameters": [
-            {
-              "name": "orderId",
-              "in": "path",
-              "description": "ID of the order that needs to be deleted",
-              "required": true,
-              "schema": {
-                "minimum": 1,
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          ],
-          "responses": {
-            "400": {
-              "description": "Invalid ID supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "Order not found",
-              "content": {}
-            }
-          }
-        }
-      },
-      "/user": {
-        "post": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Create user",
-          "description": "This can only be done by the logged in user.",
-          "operationId": "createUser",
-          "requestBody": {
-            "description": "Created user object",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "default": {
-              "description": "successful operation",
-              "content": {}
-            }
-          },
-          "x-codegen-request-body-name": "body"
-        }
-      },
-      "/user/createWithArray": {
-        "post": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Creates list of users with given input array",
-          "operationId": "createUsersWithArrayInput",
-          "requestBody": {
-            "description": "List of user object",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "default": {
-              "description": "successful operation",
-              "content": {}
-            }
-          },
-          "x-codegen-request-body-name": "body"
-        }
-      },
-      "/user/createWithList": {
-        "post": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Creates list of users with given input array",
-          "operationId": "createUsersWithListInput",
-          "requestBody": {
-            "description": "List of user object",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "default": {
-              "description": "successful operation",
-              "content": {}
-            }
-          },
-          "x-codegen-request-body-name": "body"
-        }
-      },
-      "/user/login": {
-        "get": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Logs user into the system",
-          "operationId": "loginUser",
-          "parameters": [
-            {
-              "name": "username",
-              "in": "query",
-              "description": "The user name for login",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "name": "password",
-              "in": "query",
-              "description": "The password for login in clear text",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "headers": {
-                "X-Rate-Limit": {
-                  "description": "calls per hour allowed by the user",
-                  "schema": {
-                    "type": "integer",
-                    "format": "int32"
-                  }
-                },
-                "X-Expires-After": {
-                  "description": "date in UTC when token expires",
-                  "schema": {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                }
-              },
-              "content": {
-                "application/xml": {
-                  "schema": {
-                    "type": "string"
-                  }
-                },
-                "application/json": {
-                  "schema": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid username/password supplied",
-              "content": {}
-            }
-          }
-        }
-      },
-      "/user/logout": {
-        "get": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Logs out current logged in user session",
-          "operationId": "logoutUser",
-          "responses": {
-            "default": {
-              "description": "successful operation",
-              "content": {}
-            }
-          }
-        }
-      },
-      "/user/{username}": {
-        "get": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Get user by user name",
-          "operationId": "getUserByName",
-          "parameters": [
-            {
-              "name": "username",
-              "in": "path",
-              "description": "The name that needs to be fetched. Use user1 for testing. ",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/xml": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                },
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid username supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "User not found",
-              "content": {}
-            }
-          }
-        },
-        "put": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Updated user",
-          "description": "This can only be done by the logged in user.",
-          "operationId": "updateUser",
-          "parameters": [
-            {
-              "name": "username",
-              "in": "path",
-              "description": "name that need to be updated",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "requestBody": {
-            "description": "Updated user object",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "400": {
-              "description": "Invalid user supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "User not found",
-              "content": {}
-            }
-          },
-          "x-codegen-request-body-name": "body"
-        },
-        "delete": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Delete user",
-          "description": "This can only be done by the logged in user.",
-          "operationId": "deleteUser",
-          "parameters": [
-            {
-              "name": "username",
-              "in": "path",
-              "description": "The name that needs to be deleted",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "400": {
-              "description": "Invalid username supplied",
-              "content": {}
-            },
-            "404": {
-              "description": "User not found",
-              "content": {}
-            }
-          }
-        }
-      }
     },
     "components": {
-      "schemas": {
-        "Order": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "integer",
-              "format": "int64"
+        "schemas": {
+            "TypesForMonitor": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "generalSettings": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/GeneralSettings" }] },
+                    "crawlerSelectors": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/CrawlerSelectors" }] },
+                    "crawlingSettings": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/CrawlingSettings" }] },
+                    "crawlerBaseConfig": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/CrawlerBaseConfig" }] },
+                    "indexingSettings": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/IndexingSettings" }] },
+                    "parsingSettings": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/ParsingSettings" }] },
+                    "imagesManagerConfig": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/ImagesManagerConfig" }] },
+                    "deepMappingSettings": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/DeepMappingSettings" }] },
+                    "shallowMappingSettings": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/ShallowMappingSettings" }] },
+                    "webAuthenticationTemplateConfig": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/WebAuthenticationTemplateConfig" }] },
+                    "webDriverRequestSettings": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/WebDriverRequestSettings" }] },
+                    "telegramCrawler": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/TelegramCrawler" }] },
+                    "browserBaseAuthenticationConfig": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/BrowserBaseAuthenticationConfig" }] },
+                    "attributesExample": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/AttributesExample" }] }
+                }
             },
-            "petId": {
-              "type": "integer",
-              "format": "int64"
+            "GeneralSettings": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "isFiltered": { "type": "boolean" },
+                            "snoozedUntil": { "type": "string", "format": "date-time", "nullable": true },
+                            "isParsed": { "type": "boolean" },
+                            "targetSite": { "type": "string", "nullable": true },
+                            "webPageEncoding": { "type": "string" },
+                            "enqueueIntervalMin": { "type": "integer", "format": "int32", "nullable": true },
+                            "softRequestLimit": { "type": "integer", "format": "int32", "nullable": true },
+                            "isUsingFictiveUrl": { "type": "boolean", "nullable": true },
+                            "hasThreads": { "type": "boolean", "nullable": true },
+                            "notes": { "type": "string" },
+                            "tier": { "type": "integer", "format": "int32", "nullable": true }
+                        }
+                    }
+                ]
             },
-            "quantity": {
-              "type": "integer",
-              "format": "int32"
+            "CrawlerBaseConfig": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/MongoBaseDocument" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "isDynamicCrawler": { "type": "boolean" },
+                            "isLoginUnnecessary": { "type": "boolean" },
+                            "isUsingWebDriver": { "type": "boolean" },
+                            "isEnabled": { "type": "boolean" },
+                            "title": { "type": "string" },
+                            "type": { "$ref": "#/components/schemas/CrawlerType" },
+                            "dataType": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/CrawlerDataType" }] },
+                            "prevBaseUrls": { "type": "array", "nullable": true, "items": { "type": "string" } },
+                            "baseUrl": { "type": "string" },
+                            "useRuntimeBaseUrl": { "type": "boolean" },
+                            "isCredentialsBreakable": { "type": "boolean" },
+                            "sourceGroups": { "type": "array", "items": { "type": "integer", "format": "int32" } },
+                            "severity": { "type": "integer", "format": "int32" },
+                            "isInitialIndexed": { "type": "boolean" },
+                            "isDataOverrideMode": { "type": "boolean" },
+                            "runningModes": { "type": "array", "items": { "$ref": "#/components/schemas/IndexerRunningMode" } },
+                            "monitorGroups": { "type": "array", "nullable": true, "items": { "$ref": "#/components/schemas/MonitorGroupEnum" } },
+                            "cycleGroup": { "type": "string" },
+                            "isTaskPoolDependent": { "type": "boolean" }
+                        }
+                    }
+                ]
             },
-            "shipDate": {
-              "type": "string",
-              "format": "date-time"
+            "CrawlerType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "metaCrawlerBaseCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "searchCardingBaseCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "siteBaseCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "dldBaseCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "telegramBaseCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "agressorBaseCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "discordBaseCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "singlePageCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "manualCrawler": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": [
+                    "MetaCrawlerBaseCrawler",
+                    "SearchCardingBaseCrawler",
+                    "SiteBaseCrawler",
+                    "DLDBaseCrawler",
+                    "TelegramBaseCrawler",
+                    "AgressorBaseCrawler",
+                    "DiscordBaseCrawler",
+                    "SinglePageCrawler",
+                    "ManualCrawler"
+                ],
+                "enum": [
+                    "MetaCrawlerBaseCrawler",
+                    "SearchCardingBaseCrawler",
+                    "SiteBaseCrawler",
+                    "DLDBaseCrawler",
+                    "TelegramBaseCrawler",
+                    "AgressorBaseCrawler",
+                    "DiscordBaseCrawler",
+                    "SinglePageCrawler",
+                    "ManualCrawler"
+                ]
             },
-            "status": {
-              "type": "string",
-              "description": "Order Status",
-              "enum": [
-                "placed",
-                "approved",
-                "delivered"
-              ]
+            "CrawlerDataType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "indexedData": { "type": "integer", "format": "int32", "nullable": false },
+                    "genesisData": { "type": "integer", "format": "int32", "nullable": false },
+                    "binData": { "type": "integer", "format": "int32", "nullable": false },
+                    "telegramMessageData": { "type": "integer", "format": "int32", "nullable": false },
+                    "agressorIndexedData": { "type": "integer", "format": "int32", "nullable": false },
+                    "russianMarketData": { "type": "integer", "format": "int32", "nullable": false },
+                    "magboData": { "type": "integer", "format": "int32", "nullable": false },
+                    "dldData": { "type": "integer", "format": "int32", "nullable": false },
+                    "discordMessageData": { "type": "integer", "format": "int32", "nullable": false },
+                    "dictionaryData": { "type": "integer", "format": "int32", "nullable": false },
+                    "telegramMetaData": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": [
+                    "IndexedData",
+                    "GenesisData",
+                    "BinData",
+                    "TelegramMessageData",
+                    "AgressorIndexedData",
+                    "RussianMarketData",
+                    "MagboData",
+                    "DldData",
+                    "DiscordMessageData",
+                    "DictionaryData",
+                    "TelegramMetaData"
+                ],
+                "enum": [
+                    "IndexedData",
+                    "GenesisData",
+                    "BinData",
+                    "TelegramMessageData",
+                    "AgressorIndexedData",
+                    "RussianMarketData",
+                    "MagboData",
+                    "DldData",
+                    "DiscordMessageData",
+                    "DictionaryData",
+                    "TelegramMetaData"
+                ]
             },
-            "complete": {
-              "type": "boolean",
-              "default": false
+            "IndexerRunningMode": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "mapping": { "type": "integer", "format": "int32", "nullable": false },
+                    "indexing": { "type": "integer", "format": "int32", "nullable": false },
+                    "parsing": { "type": "integer", "format": "int32", "nullable": false },
+                    "default": { "type": "integer", "format": "int32", "nullable": false },
+                    "shallowMapping": { "type": "integer", "format": "int32", "nullable": false },
+                    "deepMapping": { "type": "integer", "format": "int32", "nullable": false },
+                    "cdnIndexing": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["Mapping", "Indexing", "Parsing", "Default", "ShallowMapping", "DeepMapping", "CdnIndexing"],
+                "enum": ["Mapping", "Indexing", "Parsing", "Default", "ShallowMapping", "DeepMapping", "CdnIndexing"]
+            },
+            "MonitorGroupEnum": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "discord": { "type": "integer", "format": "int32", "nullable": false },
+                    "forums": { "type": "integer", "format": "int32", "nullable": false },
+                    "idleForums": { "type": "integer", "format": "int32", "nullable": false },
+                    "idlePastes": { "type": "integer", "format": "int32", "nullable": false },
+                    "individuals": { "type": "integer", "format": "int32", "nullable": false },
+                    "instantMessaging": { "type": "integer", "format": "int32", "nullable": false },
+                    "leakerCrawlers": { "type": "integer", "format": "int32", "nullable": false },
+                    "metaCrawlers": { "type": "integer", "format": "int32", "nullable": false },
+                    "news": { "type": "integer", "format": "int32", "nullable": false },
+                    "pastes": { "type": "integer", "format": "int32", "nullable": false },
+                    "ransomware": { "type": "integer", "format": "int32", "nullable": false },
+                    "searchCarding": { "type": "integer", "format": "int32", "nullable": false },
+                    "telegram": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": [
+                    "Discord",
+                    "Forums",
+                    "IdleForums",
+                    "IdlePastes",
+                    "Individuals",
+                    "InstantMessaging",
+                    "LeakerCrawlers",
+                    "MetaCrawlers",
+                    "News",
+                    "Pastes",
+                    "Ransomware",
+                    "SearchCarding",
+                    "Telegram"
+                ],
+                "enum": [
+                    "Discord",
+                    "Forums",
+                    "IdleForums",
+                    "IdlePastes",
+                    "Individuals",
+                    "InstantMessaging",
+                    "LeakerCrawlers",
+                    "MetaCrawlers",
+                    "News",
+                    "Pastes",
+                    "Ransomware",
+                    "SearchCarding",
+                    "Telegram"
+                ]
+            },
+            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": "string", "nullable": true } } },
+            "CrawlerSelectors": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": { "selectors": { "type": "array", "items": { "$ref": "#/components/schemas/CrawlerSelector" } } }
+            },
+            "CrawlerSelector": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/MongoBaseDocument" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "name": { "type": "string" },
+                            "xpath": { "type": "string" },
+                            "regex": { "type": "string" },
+                            "shouldSkipValidation": { "type": "boolean" },
+                            "levelPicker": { "$ref": "#/components/schemas/LevelPicker" }
+                        }
+                    }
+                ],
+                "anyOf": [
+                    {
+                        "title": "CrawlerDateSelector",
+                        "definitions": {
+                            "CrawlerSelector": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/CrawlerSelector/anyOf/0/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "name": { "type": "string" },
+                                            "xpath": { "type": "string" },
+                                            "regex": { "type": "string" },
+                                            "shouldSkipValidation": { "type": "boolean" },
+                                            "levelPicker": { "$ref": "#/components/schemas/CrawlerSelector/anyOf/0/definitions/LevelPicker" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "LevelPicker": { "type": "integer", "description": "", "x-enumNames": ["ResultPage", "CategoryPage"], "enum": [0, 1] },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/CrawlerSelector/anyOf/0/definitions/CrawlerSelector" },
+                            { "type": "object", "additionalProperties": false, "properties": { "isDayBeforeMonth": { "type": "boolean" } } }
+                        ]
+                    },
+                    {
+                        "title": "DynamicCrawlerSelector",
+                        "definitions": {
+                            "CrawlerSelector": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/CrawlerSelector/anyOf/1/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "name": { "type": "string" },
+                                            "xpath": { "type": "string" },
+                                            "regex": { "type": "string" },
+                                            "shouldSkipValidation": { "type": "boolean" },
+                                            "levelPicker": { "$ref": "#/components/schemas/CrawlerSelector/anyOf/1/definitions/LevelPicker" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "LevelPicker": { "type": "integer", "description": "", "x-enumNames": ["ResultPage", "CategoryPage"], "enum": [0, 1] },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/CrawlerSelector/anyOf/1/definitions/CrawlerSelector" },
+                            { "type": "object", "additionalProperties": false, "properties": { "note": { "type": "string" } } }
+                        ]
+                    }
+                ]
+            },
+            "LevelPicker": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "resultPage": { "type": "integer", "format": "int32", "nullable": false },
+                    "categoryPage": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["ResultPage", "CategoryPage"],
+                "enum": ["ResultPage", "CategoryPage"]
+            },
+            "CrawlingSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "mappingMaxInstances": { "type": "integer", "format": "int32", "nullable": true },
+                    "shallowMappingMaxInstances": { "type": "integer", "format": "int32", "nullable": true },
+                    "deepMappingMaxInstances": { "type": "integer", "format": "int32", "nullable": true },
+                    "indexingMaxInstances": { "type": "integer", "format": "int32", "nullable": true },
+                    "isParsed": { "type": "boolean", "nullable": true },
+                    "excludedCategoryUrls": { "type": "array", "items": { "type": "string" } },
+                    "extraCategoryUrls": { "type": "array", "items": { "type": "string" } }
+                }
+            },
+            "IndexingSettings": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "topicPageIterator": { "$ref": "#/components/schemas/PageIterator" },
+                            "indexingAfterRequestLogic": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/AfterRequestLogic" }] },
+                            "softRequestLimit": { "type": "integer", "format": "int32" },
+                            "indexingWebPageExpectedType": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/WebNodeType" }] }
+                        }
+                    }
+                ]
+            },
+            "PageIterator": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/MongoBaseDocument" },
+                    {
+                        "type": "object",
+                        "x-abstract": true,
+                        "additionalProperties": false,
+                        "properties": {
+                            "lastPageIndicator": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/Indicator" }] },
+                            "realIndex": { "type": "integer", "format": "int32" },
+                            "displayIndex": { "type": "integer", "format": "int32" },
+                            "isLastPageInvalid": { "type": "boolean" }
+                        }
+                    }
+                ],
+                "anyOf": [
+                    {
+                        "title": "HttpPageIterator",
+                        "definitions": {
+                            "HttpRequestType": { "type": "integer", "description": "", "x-enumNames": ["GET", "POST"], "enum": [0, 1] },
+                            "PageIterator": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/PageIterator/anyOf/0/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "lastPageIndicator": {
+                                                "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/PageIterator/anyOf/0/definitions/Indicator" }]
+                                            },
+                                            "realIndex": { "type": "integer", "format": "int32" },
+                                            "displayIndex": { "type": "integer", "format": "int32" },
+                                            "isLastPageInvalid": { "type": "boolean" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "Indicator": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["value"],
+                                "properties": {
+                                    "value": { "type": "string", "minLength": 1 },
+                                    "shouldExist": { "type": "boolean" },
+                                    "type": { "$ref": "#/components/schemas/PageIterator/anyOf/0/definitions/IndicatorType" }
+                                }
+                            },
+                            "IndicatorType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["XPath", "Text", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/PageIterator/anyOf/0/definitions/PageIterator" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "httpPageIteratorRequestType": { "$ref": "#/components/schemas/PageIterator/anyOf/0/definitions/HttpRequestType" },
+                                    "httpPageIteratorRequestUrl": { "type": "string" },
+                                    "httpPageIteratorRequestBody": { "type": ["null", "string"] },
+                                    "httpPageIteratorRequestIndexInterval": { "type": ["integer", "null"], "format": "int32" }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "ActionsPageIterator",
+                        "definitions": {
+                            "DriverAction": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "name": { "type": "string" },
+                                    "step": { "type": "integer", "format": "int32" },
+                                    "query": { "type": ["null", "string"] },
+                                    "queryType": { "$ref": "#/components/schemas/PageIterator/anyOf/1/definitions/ElementSelectorType" },
+                                    "value": { "type": ["null", "string"] },
+                                    "actionType": { "$ref": "#/components/schemas/PageIterator/anyOf/1/definitions/ActionType" },
+                                    "disableWait": { "type": "boolean" },
+                                    "disableAfterReq": { "type": "boolean" },
+                                    "notRequired": { "type": "boolean" }
+                                }
+                            },
+                            "ElementSelectorType": { "type": "integer", "description": "", "x-enumNames": ["XPath", "Css"], "enum": [0, 1] },
+                            "ActionType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["Typing", "Click", "Wait", "InjectJS", "KeyPress", "PGPDecrypt", "Scroll"],
+                                "enum": [0, 1, 2, 3, 4, 5, 6]
+                            },
+                            "PageIterator": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/PageIterator/anyOf/1/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "lastPageIndicator": {
+                                                "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/PageIterator/anyOf/1/definitions/Indicator" }]
+                                            },
+                                            "realIndex": { "type": "integer", "format": "int32" },
+                                            "displayIndex": { "type": "integer", "format": "int32" },
+                                            "isLastPageInvalid": { "type": "boolean" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "Indicator": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["value"],
+                                "properties": {
+                                    "value": { "type": "string", "minLength": 1 },
+                                    "shouldExist": { "type": "boolean" },
+                                    "type": { "$ref": "#/components/schemas/PageIterator/anyOf/1/definitions/IndicatorType" }
+                                }
+                            },
+                            "IndicatorType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["XPath", "Text", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/PageIterator/anyOf/1/definitions/PageIterator" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "actions": {
+                                        "type": "array",
+                                        "items": { "$ref": "#/components/schemas/PageIterator/anyOf/1/definitions/DriverAction" }
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "EmptyPageIterator",
+                        "definitions": {
+                            "PageIterator": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/PageIterator/anyOf/2/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "lastPageIndicator": {
+                                                "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/PageIterator/anyOf/2/definitions/Indicator" }]
+                                            },
+                                            "realIndex": { "type": "integer", "format": "int32" },
+                                            "displayIndex": { "type": "integer", "format": "int32" },
+                                            "isLastPageInvalid": { "type": "boolean" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "Indicator": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["value"],
+                                "properties": {
+                                    "value": { "type": "string", "minLength": 1 },
+                                    "shouldExist": { "type": "boolean" },
+                                    "type": { "$ref": "#/components/schemas/PageIterator/anyOf/2/definitions/IndicatorType" }
+                                }
+                            },
+                            "IndicatorType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["XPath", "Text", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/PageIterator/anyOf/2/definitions/PageIterator" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    }
+                ]
+            },
+            "Indicator": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["value"],
+                "properties": {
+                    "value": { "type": "string", "minLength": 1 },
+                    "shouldExist": { "type": "boolean" },
+                    "type": { "$ref": "#/components/schemas/IndicatorType" }
+                }
+            },
+            "IndicatorType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "xPath": { "type": "integer", "format": "int32", "nullable": false },
+                    "text": { "type": "integer", "format": "int32", "nullable": false },
+                    "regex": { "type": "integer", "format": "int32", "nullable": false },
+                    "css": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["XPath", "Text", "Regex", "Css"],
+                "enum": ["XPath", "Text", "Regex", "Css"]
+            },
+            "AfterRequestLogic": {
+                "type": "object",
+                "x-abstract": true,
+                "additionalProperties": false,
+                "anyOf": [
+                    {
+                        "title": "ActionsByIndicator",
+                        "definitions": {
+                            "Indicator": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["value"],
+                                "properties": {
+                                    "value": { "type": "string", "minLength": 1 },
+                                    "shouldExist": { "type": "boolean" },
+                                    "type": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/0/definitions/IndicatorType" }
+                                }
+                            },
+                            "IndicatorType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["XPath", "Text", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "DriverAction": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "name": { "type": "string" },
+                                    "step": { "type": "integer", "format": "int32" },
+                                    "query": { "type": ["null", "string"] },
+                                    "queryType": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/0/definitions/ElementSelectorType" },
+                                    "value": { "type": ["null", "string"] },
+                                    "actionType": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/0/definitions/ActionType" },
+                                    "disableWait": { "type": "boolean" },
+                                    "disableAfterReq": { "type": "boolean" },
+                                    "notRequired": { "type": "boolean" }
+                                }
+                            },
+                            "ElementSelectorType": { "type": "integer", "description": "", "x-enumNames": ["XPath", "Css"], "enum": [0, 1] },
+                            "ActionType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["Typing", "Click", "Wait", "InjectJS", "KeyPress", "PGPDecrypt", "Scroll"],
+                                "enum": [0, 1, 2, 3, 4, 5, 6]
+                            },
+                            "AfterRequestLogic": { "type": "object", "x-abstract": true, "additionalProperties": false }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/0/definitions/AfterRequestLogic" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "indicator": {
+                                        "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/0/definitions/Indicator" }]
+                                    },
+                                    "actions": {
+                                        "type": "array",
+                                        "items": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/0/definitions/DriverAction" }
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "GetRequestBySelector",
+                        "definitions": {
+                            "Indicator": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["value"],
+                                "properties": {
+                                    "value": { "type": "string", "minLength": 1 },
+                                    "shouldExist": { "type": "boolean" },
+                                    "type": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/IndicatorType" }
+                                }
+                            },
+                            "IndicatorType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["XPath", "Text", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "NewCrawlerSelector": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": ["query"],
+                                        "properties": {
+                                            "name": { "type": "string" },
+                                            "query": { "type": "string", "minLength": 1 },
+                                            "propertyPicker": { "type": ["null", "string"] },
+                                            "selectorQueryType": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/SelectorQueryType" },
+                                            "cleaningRegex": { "type": "string" },
+                                            "regexType": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/RegexType" },
+                                            "regexReplacement": { "type": ["null", "string"] },
+                                            "validationRegex": { "type": "array", "items": { "type": "string" } },
+                                            "formatText": { "type": "string" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "SelectorQueryType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["Xpath", "JsonPath", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "RegexType": { "type": "integer", "description": "", "x-enumNames": ["Match", "Replace", "Clean"], "enum": [0, 1, 2] },
+                            "MongoBaseDocument": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": { "_t": { "type": ["null", "string"] } }
+                            },
+                            "AfterRequestLogic": { "type": "object", "x-abstract": true, "additionalProperties": false }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/AfterRequestLogic" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "indicator": {
+                                        "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/Indicator" }]
+                                    },
+                                    "selector": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/NewCrawlerSelector" }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "CdnsActionsByIndicator",
+                        "definitions": {
+                            "ActionsByIndicator": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/2/definitions/AfterRequestLogic" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "indicator": {
+                                                "oneOf": [
+                                                    { "type": "null" },
+                                                    { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/2/definitions/Indicator" }
+                                                ]
+                                            },
+                                            "actions": {
+                                                "type": "array",
+                                                "items": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/2/definitions/DriverAction" }
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "Indicator": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["value"],
+                                "properties": {
+                                    "value": { "type": "string", "minLength": 1 },
+                                    "shouldExist": { "type": "boolean" },
+                                    "type": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/2/definitions/IndicatorType" }
+                                }
+                            },
+                            "IndicatorType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["XPath", "Text", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "DriverAction": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "name": { "type": "string" },
+                                    "step": { "type": "integer", "format": "int32" },
+                                    "query": { "type": ["null", "string"] },
+                                    "queryType": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/2/definitions/ElementSelectorType" },
+                                    "value": { "type": ["null", "string"] },
+                                    "actionType": { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/2/definitions/ActionType" },
+                                    "disableWait": { "type": "boolean" },
+                                    "disableAfterReq": { "type": "boolean" },
+                                    "notRequired": { "type": "boolean" }
+                                }
+                            },
+                            "ElementSelectorType": { "type": "integer", "description": "", "x-enumNames": ["XPath", "Css"], "enum": [0, 1] },
+                            "ActionType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["Typing", "Click", "Wait", "InjectJS", "KeyPress", "PGPDecrypt", "Scroll"],
+                                "enum": [0, 1, 2, 3, 4, 5, 6]
+                            },
+                            "AfterRequestLogic": { "type": "object", "x-abstract": true, "additionalProperties": false }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/AfterRequestLogic/anyOf/2/definitions/ActionsByIndicator" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    }
+                ]
+            },
+            "WebNodeType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "html": { "type": "integer", "format": "int32", "nullable": false },
+                    "json": { "type": "integer", "format": "int32", "nullable": false },
+                    "text": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["Html", "Json", "Text"],
+                "enum": ["Html", "Json", "Text"]
+            },
+            "ParsingSettings": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "dataContainerSelector": { "$ref": "#/components/schemas/ParsingSelector" },
+                            "topicContainerSelector": { "$ref": "#/components/schemas/ParsingSelector" },
+                            "dataSelectorsArray": { "type": "array", "items": { "$ref": "#/components/schemas/ParsingSelector" } },
+                            "processActions": { "type": "array", "items": { "$ref": "#/components/schemas/ProcessAction" } },
+                            "dataValidation": { "type": "array", "items": { "$ref": "#/components/schemas/DataValidation" } }
+                        }
+                    }
+                ]
+            },
+            "ParsingSelector": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/NewCrawlerSelector" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "combineValues": { "type": "boolean" },
+                            "levelPicker": { "$ref": "#/components/schemas/LevelPicker" },
+                            "dataLocationStrs": { "type": "array", "items": { "type": "string" } },
+                            "dataLocation": { "$ref": "#/components/schemas/DataLocation" }
+                        }
+                    }
+                ],
+                "anyOf": [
+                    {
+                        "title": "ParsingSelector",
+                        "definitions": {
+                            "LevelPicker": { "type": "integer", "description": "", "x-enumNames": ["ResultPage", "CategoryPage"], "enum": [0, 1] },
+                            "DataLocation": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumFlags": true,
+                                "x-enumNames": ["MainPage", "ExtraPages"],
+                                "enum": [1, 2]
+                            },
+                            "NewCrawlerSelector": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ParsingSelector/anyOf/0/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": ["query"],
+                                        "properties": {
+                                            "name": { "type": "string" },
+                                            "query": { "type": "string", "minLength": 1 },
+                                            "propertyPicker": { "type": ["null", "string"] },
+                                            "selectorQueryType": { "$ref": "#/components/schemas/ParsingSelector/anyOf/0/definitions/SelectorQueryType" },
+                                            "cleaningRegex": { "type": "string" },
+                                            "regexType": { "$ref": "#/components/schemas/ParsingSelector/anyOf/0/definitions/RegexType" },
+                                            "regexReplacement": { "type": ["null", "string"] },
+                                            "validationRegex": { "type": "array", "items": { "type": "string" } },
+                                            "formatText": { "type": "string" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "SelectorQueryType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["Xpath", "JsonPath", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "RegexType": { "type": "integer", "description": "", "x-enumNames": ["Match", "Replace", "Clean"], "enum": [0, 1, 2] },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ParsingSelector/anyOf/0/definitions/NewCrawlerSelector" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "combineValues": { "type": "boolean" },
+                                    "levelPicker": { "$ref": "#/components/schemas/ParsingSelector/anyOf/0/definitions/LevelPicker" },
+                                    "dataLocationStrs": { "type": "array", "items": { "type": "string" } },
+                                    "dataLocation": { "$ref": "#/components/schemas/ParsingSelector/anyOf/0/definitions/DataLocation" }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "DataLocation": {
+                "type": "string",
+                "description": "",
+                "x-enumFlags": true,
+                "properties": {
+                    "mainPage": { "type": "integer", "format": "int32", "nullable": false },
+                    "extraPages": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["MainPage", "ExtraPages"],
+                "enum": ["MainPage", "ExtraPages"]
+            },
+            "NewCrawlerSelector": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/MongoBaseDocument" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["query"],
+                        "properties": {
+                            "name": { "type": "string" },
+                            "query": { "type": "string", "minLength": 1 },
+                            "propertyPicker": { "type": "string", "nullable": true },
+                            "selectorQueryType": { "$ref": "#/components/schemas/SelectorQueryType" },
+                            "cleaningRegex": { "type": "string" },
+                            "regexType": { "$ref": "#/components/schemas/RegexType" },
+                            "regexReplacement": { "type": "string", "nullable": true },
+                            "validationRegex": { "type": "array", "items": { "type": "string" } },
+                            "formatText": { "type": "string" }
+                        }
+                    }
+                ],
+                "anyOf": [
+                    {
+                        "title": "ParsingSelector",
+                        "definitions": {
+                            "LevelPicker": { "type": "integer", "description": "", "x-enumNames": ["ResultPage", "CategoryPage"], "enum": [0, 1] },
+                            "DataLocation": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumFlags": true,
+                                "x-enumNames": ["MainPage", "ExtraPages"],
+                                "enum": [1, 2]
+                            },
+                            "NewCrawlerSelector": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": ["query"],
+                                        "properties": {
+                                            "name": { "type": "string" },
+                                            "query": { "type": "string", "minLength": 1 },
+                                            "propertyPicker": { "type": ["null", "string"] },
+                                            "selectorQueryType": {
+                                                "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/SelectorQueryType"
+                                            },
+                                            "cleaningRegex": { "type": "string" },
+                                            "regexType": { "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/RegexType" },
+                                            "regexReplacement": { "type": ["null", "string"] },
+                                            "validationRegex": { "type": "array", "items": { "type": "string" } },
+                                            "formatText": { "type": "string" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "SelectorQueryType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["Xpath", "JsonPath", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "RegexType": { "type": "integer", "description": "", "x-enumNames": ["Match", "Replace", "Clean"], "enum": [0, 1, 2] },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/NewCrawlerSelector" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "combineValues": { "type": "boolean" },
+                                    "levelPicker": { "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/LevelPicker" },
+                                    "dataLocationStrs": { "type": "array", "items": { "type": "string" } },
+                                    "dataLocation": { "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/DataLocation" }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "SelectorQueryType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "xpath": { "type": "integer", "format": "int32", "nullable": false },
+                    "jsonPath": { "type": "integer", "format": "int32", "nullable": false },
+                    "regex": { "type": "integer", "format": "int32", "nullable": false },
+                    "css": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["Xpath", "JsonPath", "Regex", "Css"],
+                "enum": ["Xpath", "JsonPath", "Regex", "Css"]
+            },
+            "RegexType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "match": { "type": "integer", "format": "int32", "nullable": false },
+                    "replace": { "type": "integer", "format": "int32", "nullable": false },
+                    "clean": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["Match", "Replace", "Clean"],
+                "enum": ["Match", "Replace", "Clean"]
+            },
+            "ProcessAction": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/MongoBaseDocument" },
+                    {
+                        "type": "object",
+                        "x-abstract": true,
+                        "additionalProperties": false,
+                        "properties": {
+                            "key": { "type": "string" },
+                            "mustExists": { "type": "boolean" },
+                            "destKey": { "type": "string", "nullable": true }
+                        }
+                    }
+                ],
+                "anyOf": [
+                    {
+                        "title": "FictiveUrlProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/0/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/0/definitions/ProcessAction" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resultKeyName": { "type": ["null", "string"] },
+                                    "resultKeySplitBy": { "type": ["null", "string"] },
+                                    "keysForHasing": { "type": "array", "items": { "type": "string" } }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "RegexProcess",
+                        "definitions": {
+                            "RegexType": { "type": "integer", "description": "", "x-enumNames": ["Match", "Replace", "Clean"], "enum": [0, 1, 2] },
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/1/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/1/definitions/ProcessAction" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "regex": { "type": "string" },
+                                    "type": { "$ref": "#/components/schemas/ProcessAction/anyOf/1/definitions/RegexType" },
+                                    "replacement": { "type": ["null", "string"] }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "DynamicDataProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/2/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/2/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "DateParseProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/3/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/3/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false, "properties": { "dayBeforeMonth": { "type": "boolean" } } }
+                        ]
+                    },
+                    {
+                        "title": "CopyValueProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/4/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/4/definitions/ProcessAction" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": { "keySource": { "type": "string" }, "deleteOldKey": { "type": "boolean" } }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "GetAbsoluteUrlProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/5/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/5/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "BodyImagesProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/6/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/6/definitions/ProcessAction" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "contentKey": { "type": "string" },
+                                    "destS3UrlsKey": { "type": ["null", "string"] },
+                                    "imagesFolder": { "type": "string" }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "HtmlDecodeProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/7/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/7/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "ParentUrlContainerProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/8/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/8/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "TopicUrlProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/9/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/9/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "HtmlBodyToTextProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/10/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/10/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "JsonToDictionaryProcess",
+                        "definitions": {
+                            "ParsingSelector": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/NewCrawlerSelector" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "combineValues": { "type": "boolean" },
+                                            "levelPicker": { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/LevelPicker" },
+                                            "dataLocationStrs": { "type": "array", "items": { "type": "string" } },
+                                            "dataLocation": { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/DataLocation" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "LevelPicker": { "type": "integer", "description": "", "x-enumNames": ["ResultPage", "CategoryPage"], "enum": [0, 1] },
+                            "DataLocation": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumFlags": true,
+                                "x-enumNames": ["MainPage", "ExtraPages"],
+                                "enum": [1, 2]
+                            },
+                            "NewCrawlerSelector": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": ["query"],
+                                        "properties": {
+                                            "name": { "type": "string" },
+                                            "query": { "type": "string", "minLength": 1 },
+                                            "propertyPicker": { "type": ["null", "string"] },
+                                            "selectorQueryType": { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/SelectorQueryType" },
+                                            "cleaningRegex": { "type": "string" },
+                                            "regexType": { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/RegexType" },
+                                            "regexReplacement": { "type": ["null", "string"] },
+                                            "validationRegex": { "type": "array", "items": { "type": "string" } },
+                                            "formatText": { "type": "string" }
+                                        }
+                                    }
+                                ]
+                            },
+                            "SelectorQueryType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["Xpath", "JsonPath", "Regex", "Css"],
+                                "enum": [0, 1, 2, 3]
+                            },
+                            "RegexType": { "type": "integer", "description": "", "x-enumNames": ["Match", "Replace", "Clean"], "enum": [0, 1, 2] },
+                            "MongoBaseDocument": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": { "_t": { "type": ["null", "string"] } }
+                            },
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/ProcessAction" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": { "jsonDataSelector": { "$ref": "#/components/schemas/ProcessAction/anyOf/11/definitions/ParsingSelector" } }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "UASMarketAddCounterBoolWithNewKeyProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/12/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/12/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false, "properties": { "newKeyName": { "type": "string" } } }
+                        ]
+                    },
+                    {
+                        "title": "TelegramMetaProcess",
+                        "definitions": {
+                            "ProcessAction": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ProcessAction/anyOf/13/definitions/MongoBaseDocument" },
+                                    {
+                                        "type": "object",
+                                        "x-abstract": true,
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "key": { "type": "string" },
+                                            "mustExists": { "type": "boolean" },
+                                            "destKey": { "type": ["null", "string"] }
+                                        }
+                                    }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ProcessAction/anyOf/13/definitions/ProcessAction" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    }
+                ]
+            },
+            "DataValidation": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/MongoBaseDocument" },
+                    { "type": "object", "x-abstract": true, "additionalProperties": false, "properties": { "key": { "type": "string" } } }
+                ],
+                "anyOf": [
+                    {
+                        "title": "NullOrEmptyValidation",
+                        "definitions": {
+                            "DataValidation": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/DataValidation/anyOf/0/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false, "properties": { "key": { "type": "string" } } }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/DataValidation/anyOf/0/definitions/DataValidation" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "IllegalCharactersValidation",
+                        "definitions": {
+                            "DataValidation": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/DataValidation/anyOf/1/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false, "properties": { "key": { "type": "string" } } }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/DataValidation/anyOf/1/definitions/DataValidation" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": { "illegalChars": { "type": ["array", "null"], "items": { "type": "string" } } }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "FutureDateValidation",
+                        "definitions": {
+                            "DataValidation": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/DataValidation/anyOf/2/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false, "properties": { "key": { "type": "string" } } }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/DataValidation/anyOf/2/definitions/DataValidation" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "UrlValidation",
+                        "definitions": {
+                            "DataValidation": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/DataValidation/anyOf/3/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false, "properties": { "key": { "type": "string" } } }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/DataValidation/anyOf/3/definitions/DataValidation" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    }
+                ]
+            },
+            "ImagesManagerConfig": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "scrapeInlineImages": { "type": "boolean" },
+                            "scrapeLinkedImages": { "type": "boolean" },
+                            "dataContainerSelector": { "$ref": "#/components/schemas/NewCrawlerSelector" },
+                            "attachmentsSelector": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] },
+                            "inlineImageSelector": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] },
+                            "inlineImagesContainerSelector": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] }
+                        }
+                    }
+                ]
+            },
+            "DeepMappingSettings": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "topicUrlSelector": { "$ref": "#/components/schemas/NewCrawlerSelector" },
+                            "topicContainerSelector": { "$ref": "#/components/schemas/NewCrawlerSelector" },
+                            "topicKeyRegex": { "type": "string" },
+                            "categoryPageIterator": { "$ref": "#/components/schemas/PageIterator" },
+                            "topicResultPageCount": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] },
+                            "deepMappingAfterRequestLogic": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/AfterRequestLogic" }] },
+                            "topicChangedSelectors": { "type": "array", "items": { "$ref": "#/components/schemas/NewCrawlerSelector" } },
+                            "disableHistory": { "type": "boolean" },
+                            "excludedTopicUrls": { "type": "array", "items": { "type": "string" } },
+                            "deepMappingWebPageExpectedType": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/WebNodeType" }] }
+                        }
+                    }
+                ]
+            },
+            "ShallowMappingSettings": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "categoryUrlSelector": { "$ref": "#/components/schemas/NewCrawlerSelector" },
+                            "categoryKeyRegex": { "type": "string" },
+                            "categoryContainerSelector": { "$ref": "#/components/schemas/NewCrawlerSelector" },
+                            "excludedCategoryUrls": { "type": "array", "items": { "type": "string" } },
+                            "extraCategoryUrls": { "type": "array", "items": { "type": "string" } },
+                            "subCategoryContainerSelector": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] },
+                            "subCategoryUrlSelector": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] },
+                            "categoryCounterSelector": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] },
+                            "subCategoryCounterSelector": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/NewCrawlerSelector" }] }
+                        }
+                    }
+                ]
+            },
+            "WebAuthenticationTemplateConfig": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "authenticationRetries": { "type": "integer", "format": "int32", "nullable": true },
+                            "credentials": { "type": "array", "items": { "$ref": "#/components/schemas/Credential" } },
+                            "loginUrl": { "type": "string" },
+                            "authenticationIndicators": { "type": "array", "items": { "$ref": "#/components/schemas/Indicator" } },
+                            "blockedUserIndicators": { "type": "array", "nullable": true, "items": { "$ref": "#/components/schemas/Indicator" } }
+                        }
+                    }
+                ]
+            },
+            "Credential": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/MongoBaseDocument" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "isEnabled": { "type": "boolean" },
+                            "isBroken": { "type": "boolean" },
+                            "username": { "type": "string" },
+                            "password": { "type": "string" },
+                            "proxyId": { "type": "integer", "format": "int32" },
+                            "parallelDegree": { "type": "integer", "format": "int32" },
+                            "sleepBetweenAcquiresSec": { "type": "integer", "format": "int32" },
+                            "maxDailyRequests": { "type": "integer", "format": "int32" },
+                            "extraFields": { "type": "object", "additionalProperties": { "type": "string" } },
+                            "headers": { "type": "object", "additionalProperties": { "type": "string" } }
+                        }
+                    }
+                ]
+            },
+            "WebDriverRequestSettings": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "proxyType": { "$ref": "#/components/schemas/ProxyType" },
+                            "proxyId": { "type": "integer", "format": "int32", "nullable": true },
+                            "userAgent": { "type": "string", "nullable": true },
+                            "sleepBetweenRequestsSec": { "type": "integer", "format": "int32" },
+                            "cookies": { "type": "array", "items": { "$ref": "#/components/schemas/Cookie" } },
+                            "headers": { "type": "object", "additionalProperties": { "type": "string" } },
+                            "urlParams": { "type": "object", "additionalProperties": { "type": "string" } },
+                            "visualizationOptions": { "$ref": "#/components/schemas/VisualizationOptions" },
+                            "loadedIndicators": { "type": "array", "items": { "$ref": "#/components/schemas/Indicator" } },
+                            "requestTimeoutSec": { "type": "integer", "format": "int32" },
+                            "stringsToCensor": { "type": "array", "items": { "type": "string" } },
+                            "captchaSolvers": { "type": "array", "items": { "$ref": "#/components/schemas/ChallengeSolver" } },
+                            "twoFASolvers": { "type": "array", "items": { "$ref": "#/components/schemas/ChallengeSolver" } },
+                            "csrfBypassIndicators": { "type": "array", "items": { "$ref": "#/components/schemas/Indicator" } },
+                            "deletedIndicators": { "type": "array", "items": { "$ref": "#/components/schemas/Indicator" } },
+                            "loginUrl": { "type": "string" },
+                            "clientCertificates": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/ClientCertificatesSettings" }] },
+                            "webPageExpectedType": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/WebNodeType" }] },
+                            "waitUntilFlags": { "type": "array", "items": { "$ref": "#/components/schemas/WaitUntilNavigation" } }
+                        }
+                    }
+                ]
+            },
+            "Proxy": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "id": { "type": "integer", "format": "int32" },
+                    "ip": { "type": "string" },
+                    "port": { "type": "integer", "format": "int32" },
+                    "username": { "type": "string" },
+                    "password": { "type": "string" }
+                }
+            },
+            "ProxyType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "none": { "type": "integer", "format": "int32", "nullable": false },
+                    "i2P": { "type": "integer", "format": "int32", "nullable": false },
+                    "tor": { "type": "integer", "format": "int32", "nullable": false },
+                    "fiddler": { "type": "integer", "format": "int32", "nullable": false },
+                    "linkedToCredentials": { "type": "integer", "format": "int32", "nullable": false },
+                    "random": { "type": "integer", "format": "int32", "nullable": false },
+                    "dedicated": { "type": "integer", "format": "int32", "nullable": false },
+                    "constant": { "type": "integer", "format": "int32", "nullable": false },
+                    "unknown": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["None", "I2P", "Tor", "Fiddler", "LinkedToCredentials", "Random", "Dedicated", "Constant", "Unknown"],
+                "enum": ["None", "I2P", "Tor", "Fiddler", "LinkedToCredentials", "Random", "Dedicated", "Constant", "Unknown"]
+            },
+            "Cookie": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "comment": { "type": "string" },
+                    "commentUri": { "type": "string", "format": "uri", "nullable": true },
+                    "httpOnly": { "type": "boolean" },
+                    "discard": { "type": "boolean" },
+                    "domain": { "type": "string" },
+                    "expired": { "type": "boolean" },
+                    "expires": { "type": "string", "format": "date-time" },
+                    "name": { "type": "string" },
+                    "path": { "type": "string" },
+                    "port": { "type": "string" },
+                    "secure": { "type": "boolean" },
+                    "timeStamp": { "type": "string", "format": "date-time" },
+                    "value": { "type": "string" },
+                    "version": { "type": "integer", "format": "int32" }
+                }
+            },
+            "VisualizationOptions": {
+                "type": "string",
+                "description": "",
+                "x-enumFlags": true,
+                "properties": {
+                    "none": { "type": "integer", "format": "int32", "nullable": false },
+                    "pdf": { "type": "integer", "format": "int32", "nullable": false },
+                    "screenshot": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["None", "Pdf", "Screenshot"],
+                "enum": ["None", "Pdf", "Screenshot"]
+            },
+            "ChallengeSolver": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "indicator": { "$ref": "#/components/schemas/Indicator" },
+                    "settings": { "$ref": "#/components/schemas/ChallengeSettings" },
+                    "actions": { "type": "array", "items": { "$ref": "#/components/schemas/DriverAction" } },
+                    "badCaptchaIndicator": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/Indicator" }] },
+                    "isMiddleSession": { "type": "boolean" }
+                }
+            },
+            "ChallengeSettings": {
+                "allOf": [{ "$ref": "#/components/schemas/MongoBaseDocument" }, { "type": "object", "x-abstract": true, "additionalProperties": false }],
+                "anyOf": [
+                    {
+                        "title": "CaptchaV2Settings",
+                        "definitions": {
+                            "ElementSelector": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "value": { "type": "string" },
+                                    "type": { "$ref": "#/components/schemas/ChallengeSettings/anyOf/0/definitions/ElementSelectorType" }
+                                }
+                            },
+                            "ElementSelectorType": { "type": "integer", "description": "", "x-enumNames": ["XPath", "Css"], "enum": [0, 1] },
+                            "ChallengeSettings": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ChallengeSettings/anyOf/0/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/0/definitions/ChallengeSettings" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": { "selector": { "$ref": "#/components/schemas/ChallengeSettings/anyOf/0/definitions/ElementSelector" } }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "HCaptchaSettings",
+                        "definitions": {
+                            "ChallengeSettings": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ChallengeSettings/anyOf/1/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/1/definitions/ChallengeSettings" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "iFrameXpath": { "type": ["null", "string"] },
+                                    "tokenRegex": { "type": ["null", "string"] },
+                                    "submitScript": { "type": ["null", "string"] }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "KeyCaptchaSettings",
+                        "definitions": {
+                            "ChallengeSettings": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ChallengeSettings/anyOf/2/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/2/definitions/ChallengeSettings" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": { "captchaXpath": { "type": ["null", "string"] }, "submitScript": { "type": ["null", "string"] } }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "ReCaptchaSettings",
+                        "definitions": {
+                            "ChallengeSettings": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ChallengeSettings/anyOf/3/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/3/definitions/ChallengeSettings" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "iFrameXpath": { "type": ["null", "string"] },
+                                    "googleKeyRegex": { "type": ["null", "string"] },
+                                    "submitScript": { "type": ["null", "string"] },
+                                    "isInvisable": { "type": ["boolean", "null"] },
+                                    "closeWindow": { "type": "boolean" }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "SimpleCaptchaSettings",
+                        "definitions": {
+                            "ElementSelector": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "value": { "type": "string" },
+                                    "type": { "$ref": "#/components/schemas/ChallengeSettings/anyOf/4/definitions/ElementSelectorType" }
+                                }
+                            },
+                            "ElementSelectorType": { "type": "integer", "description": "", "x-enumNames": ["XPath", "Css"], "enum": [0, 1] },
+                            "CaptchaNumericType": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["NotSpecified", "OnlyNumbers", "OnlyLetters", "OnlyNumberOrOnlyLetters", "BothNumbersAndLetters"],
+                                "enum": [0, 1, 2, 3, 4]
+                            },
+                            "CaptchaLanguage": {
+                                "type": "integer",
+                                "description": "",
+                                "x-enumNames": ["NotSpecified", "Cyrillic", "Latic"],
+                                "enum": [0, 1, 2]
+                            },
+                            "ChallengeSettings": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ChallengeSettings/anyOf/4/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/4/definitions/ChallengeSettings" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "imageSelector": { "$ref": "#/components/schemas/ChallengeSettings/anyOf/4/definitions/ElementSelector" },
+                                    "inputSelector": { "$ref": "#/components/schemas/ChallengeSettings/anyOf/4/definitions/ElementSelector" },
+                                    "instructions": { "type": "string" },
+                                    "isMultipleWords": { "type": ["boolean", "null"] },
+                                    "isCaseSenstive": { "type": ["boolean", "null"] },
+                                    "captchaNumricType": {
+                                        "oneOf": [
+                                            { "type": "null" },
+                                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/4/definitions/CaptchaNumericType" }
+                                        ]
+                                    },
+                                    "isCalculationRequired": { "type": ["boolean", "null"] },
+                                    "minLength": { "type": ["integer", "null"], "format": "int32" },
+                                    "maxLength": { "type": ["integer", "null"], "format": "int32" },
+                                    "cpatchaLanguage": {
+                                        "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/ChallengeSettings/anyOf/4/definitions/CaptchaLanguage" }]
+                                    },
+                                    "langCode": { "type": ["null", "string"] }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "ActionCaptchaSettings",
+                        "definitions": {
+                            "ChallengeSettings": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ChallengeSettings/anyOf/5/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/5/definitions/ChallengeSettings" },
+                            { "type": "object", "additionalProperties": false }
+                        ]
+                    },
+                    {
+                        "title": "TwoFASettings",
+                        "definitions": {
+                            "ElementSelector": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "value": { "type": "string" },
+                                    "type": { "$ref": "#/components/schemas/ChallengeSettings/anyOf/6/definitions/ElementSelectorType" }
+                                }
+                            },
+                            "ElementSelectorType": { "type": "integer", "description": "", "x-enumNames": ["XPath", "Css"], "enum": [0, 1] },
+                            "ChallengeSettings": {
+                                "allOf": [
+                                    { "$ref": "#/components/schemas/ChallengeSettings/anyOf/6/definitions/MongoBaseDocument" },
+                                    { "type": "object", "x-abstract": true, "additionalProperties": false }
+                                ]
+                            },
+                            "MongoBaseDocument": { "type": "object", "additionalProperties": false, "properties": { "_t": { "type": ["null", "string"] } } }
+                        },
+                        "allOf": [
+                            { "$ref": "#/components/schemas/ChallengeSettings/anyOf/6/definitions/ChallengeSettings" },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resultInput": { "$ref": "#/components/schemas/ChallengeSettings/anyOf/6/definitions/ElementSelector" },
+                                    "emailHost": { "type": "string" },
+                                    "emailPort": { "type": "integer", "format": "int32" },
+                                    "emailUserMail": { "type": "string" },
+                                    "emailPassword": { "type": "string" },
+                                    "emailIsUsingSll": { "type": "boolean" },
+                                    "messageRegexPattern": { "type": "string" },
+                                    "submitBtn": {
+                                        "oneOf": [{ "type": "null" }, { "$ref": "#/components/schemas/ChallengeSettings/anyOf/6/definitions/ElementSelector" }]
+                                    },
+                                    "getMessagesMinDate": { "type": ["null", "string"], "format": "date-time" },
+                                    "getMessagesRetries": { "type": "integer", "format": "int32" },
+                                    "getMessagesSenderEmail": { "type": ["null", "string"] },
+                                    "getMessagesLastId": { "type": ["null", "string"] },
+                                    "getMessagesLimit": { "type": "integer", "format": "int32" }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "DriverAction": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": { "type": "string" },
+                    "step": { "type": "integer", "format": "int32" },
+                    "query": { "type": "string", "nullable": true },
+                    "queryType": { "$ref": "#/components/schemas/ElementSelectorType" },
+                    "value": { "type": "string", "nullable": true },
+                    "actionType": { "$ref": "#/components/schemas/ActionType" },
+                    "disableWait": { "type": "boolean" },
+                    "disableAfterReq": { "type": "boolean" },
+                    "notRequired": { "type": "boolean" }
+                }
+            },
+            "ElementSelectorType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "xPath": { "type": "integer", "format": "int32", "nullable": false },
+                    "css": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["XPath", "Css"],
+                "enum": ["XPath", "Css"]
+            },
+            "ActionType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "typing": { "type": "integer", "format": "int32", "nullable": false },
+                    "click": { "type": "integer", "format": "int32", "nullable": false },
+                    "wait": { "type": "integer", "format": "int32", "nullable": false },
+                    "injectJS": { "type": "integer", "format": "int32", "nullable": false },
+                    "keyPress": { "type": "integer", "format": "int32", "nullable": false },
+                    "pgpDecrypt": { "type": "integer", "format": "int32", "nullable": false },
+                    "scroll": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["Typing", "Click", "Wait", "InjectJS", "KeyPress", "PGPDecrypt", "Scroll"],
+                "enum": ["Typing", "Click", "Wait", "InjectJS", "KeyPress", "PGPDecrypt", "Scroll"]
+            },
+            "ClientCertificatesSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": { "password": { "type": "string", "nullable": true }, "certBase64": { "type": "string" } }
+            },
+            "WaitUntilNavigation": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "load": { "type": "integer", "format": "int32", "nullable": false },
+                    "domContentLoaded": { "type": "integer", "format": "int32", "nullable": false },
+                    "networkidle0": { "type": "integer", "format": "int32", "nullable": false },
+                    "networkidle2": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["Load", "DOMContentLoaded", "Networkidle0", "Networkidle2"],
+                "enum": ["Load", "DOMContentLoaded", "Networkidle0", "Networkidle2"]
+            },
+            "TelegramCrawler": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/InstantMessagingCrawler" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": { "chatId": { "type": "string" }, "phoneNumber": { "type": "string" }, "disableRejoin": { "type": "boolean" } }
+                    }
+                ]
+            },
+            "InstantMessagingCrawler": {
+                "allOf": [{ "$ref": "#/components/schemas/IndexedCrawler" }, { "type": "object", "additionalProperties": false }]
+            },
+            "IndexedCrawler": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CrawlerBaseConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "userAgent": { "type": "string" },
+                            "requestTimeoutSec": { "type": "integer", "format": "int32" },
+                            "softRequestLimit": { "type": "integer", "format": "int32" },
+                            "isUsingFictiveUrl": { "type": "boolean" },
+                            "sleepBetweenRequestsSec": { "type": "integer", "format": "int32" },
+                            "webPageEncoding": { "type": "string" },
+                            "selectors": { "type": "array", "items": { "$ref": "#/components/schemas/CrawlerSelector" } }
+                        }
+                    }
+                ]
+            },
+            "CancellationToken": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "isCancellationRequested": { "type": "boolean" },
+                    "canBeCanceled": { "type": "boolean" },
+                    "waitHandle": { "$ref": "#/components/schemas/WaitHandle" }
+                }
+            },
+            "WaitHandle": {
+                "properties": { "waitTimeout": { "type": "integer", "format": "int32", "nullable": false } },
+                "allOf": [
+                    { "$ref": "#/components/schemas/MarshalByRefObject" },
+                    {
+                        "type": "object",
+                        "x-abstract": true,
+                        "additionalProperties": false,
+                        "properties": {
+                            "handle": {
+                                "deprecated": true,
+                                "x-deprecatedMessage": "Use the SafeWaitHandle property instead.",
+                                "oneOf": [{ "$ref": "#/components/schemas/IntPtr" }]
+                            },
+                            "safeWaitHandle": { "$ref": "#/components/schemas/SafeWaitHandle" }
+                        }
+                    }
+                ]
+            },
+            "IntPtr": { "type": "object", "additionalProperties": false, "properties": { "zero": { "type": "object", "nullable": false } } },
+            "SafeWaitHandle": {
+                "allOf": [{ "$ref": "#/components/schemas/SafeHandleZeroOrMinusOneIsInvalid" }, { "type": "object", "additionalProperties": false }]
+            },
+            "SafeHandleZeroOrMinusOneIsInvalid": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/SafeHandle" },
+                    { "type": "object", "x-abstract": true, "additionalProperties": false, "properties": { "isInvalid": { "type": "boolean" } } }
+                ]
+            },
+            "SafeHandle": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/CriticalFinalizerObject" },
+                    { "type": "object", "x-abstract": true, "additionalProperties": false, "properties": { "isClosed": { "type": "boolean" } } }
+                ]
+            },
+            "CriticalFinalizerObject": { "type": "object", "x-abstract": true, "additionalProperties": false },
+            "MarshalByRefObject": { "type": "object", "x-abstract": true, "additionalProperties": false },
+            "BrowserBaseAuthenticationConfig": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/WebAuthenticationTemplateConfig" },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": { "loginActions": { "type": "array", "items": { "$ref": "#/components/schemas/DriverAction" } } }
+                    }
+                ]
+            },
+            "AttributesExample": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "haveDescription": { "type": "string", "description": "my desc" },
+                    "haveTitle": { "title": "display name", "type": "string" },
+                    "deprecated": { "type": "boolean", "deprecated": true, "nullable": true },
+                    "haveDefaultValue": { "type": "boolean", "default": true },
+                    "havePattern": {
+                        "type": "string",
+                        "pattern": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*)"
+                    },
+                    "haveLength": { "type": "string", "maxLength": 100, "minLength": 10 },
+                    "haveLength2": { "type": "string", "maxLength": 100, "minLength": 10 },
+                    "haveRange": { "type": "integer", "format": "int32", "maximum": 100, "minimum": 10 },
+                    "listMinMaxItems": { "type": "array", "maxItems": 100, "minItems": 2, "items": { "type": "string" } },
+                    "uniqueList": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+                    "lastProp": { "type": "string" }
+                }
+            },
+            "GetTabsReq": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "isDynamicCrawler": { "type": "boolean" },
+                    "type": { "$ref": "#/components/schemas/CrawlerType" },
+                    "isParsed": { "type": "boolean" }
+                }
+            },
+            "BotParserInput": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "key": { "type": "string" },
+                    "botType": { "$ref": "#/components/schemas/BotnetBotType" },
+                    "sourceType": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/BotnetSourceType" }] }
+                }
+            },
+            "BotnetBotType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "azor": { "type": "integer", "format": "int32", "nullable": false },
+                    "raccoon": { "type": "integer", "format": "int32", "nullable": false },
+                    "vidar": { "type": "integer", "format": "int32", "nullable": false },
+                    "smoke": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["Azor", "Raccoon", "Vidar", "Smoke"],
+                "enum": ["Azor", "Raccoon", "Vidar", "Smoke"]
+            },
+            "BotnetSourceType": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "russainMarket": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": ["RussainMarket"],
+                "enum": ["RussainMarket"]
+            },
+            "BotUploaderInput": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "botType": { "$ref": "#/components/schemas/BotnetBotType" },
+                    "sourceType": { "nullable": true, "oneOf": [{ "$ref": "#/components/schemas/BotnetSourceType" }] },
+                    "fileName": { "type": "string" },
+                    "b64FileStream": { "type": "string" }
+                }
+            },
+            "ElasticsearchIndex": {
+                "type": "string",
+                "description": "",
+                "properties": {
+                    "data": { "type": "integer", "format": "int32", "nullable": false },
+                    "bins": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataGenesis": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataRussianMarket": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataAgressor": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataDldSourceCodeDiffs": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataTelegram": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataDiscord": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataMagbo": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataIntelligenceReports": { "type": "integer", "format": "int32", "nullable": false },
+                    "dataLeakedCredentialsCitadel": { "type": "integer", "format": "int32", "nullable": false },
+                    "leakedCredentialsInstantMessaging": { "type": "integer", "format": "int32", "nullable": false },
+                    "leakedCredentialsCompromisedAccount": { "type": "integer", "format": "int32", "nullable": false },
+                    "uasMarketData": { "type": "integer", "format": "int32", "nullable": false },
+                    "socialData": { "type": "integer", "format": "int32", "nullable": false },
+                    "telegramMetaData": { "type": "integer", "format": "int32", "nullable": false },
+                    "digital_assets": { "type": "integer", "format": "int32", "nullable": false },
+                    "digital_assets_recon": { "type": "integer", "format": "int32", "nullable": false },
+                    "hacking_discussions": { "type": "integer", "format": "int32", "nullable": false },
+                    "hacking_discussions_aggr": { "type": "integer", "format": "int32", "nullable": false },
+                    "leaked_credentials": { "type": "integer", "format": "int32", "nullable": false },
+                    "leaked_credentials_hacking_discussions": { "type": "integer", "format": "int32", "nullable": false },
+                    "network_vulnerabilities": { "type": "integer", "format": "int32", "nullable": false },
+                    "credit_cards": { "type": "integer", "format": "int32", "nullable": false },
+                    "subsDldSourceCode": { "type": "integer", "format": "int32", "nullable": false },
+                    "subsBotnets": { "type": "integer", "format": "int32", "nullable": false },
+                    "value__": { "type": "integer", "format": "int32", "nullable": false }
+                },
+                "x-enumNames": [
+                    "data",
+                    "bins",
+                    "DataGenesis",
+                    "DataRussianMarket",
+                    "DataAgressor",
+                    "DataDldSourceCodeDiffs",
+                    "DataTelegram",
+                    "DataDiscord",
+                    "DataMagbo",
+                    "DataIntelligenceReports",
+                    "DataLeakedCredentialsCitadel",
+                    "LeakedCredentialsInstantMessaging",
+                    "LeakedCredentialsCompromisedAccount",
+                    "UASMarketData",
+                    "SocialData",
+                    "TelegramMetaData",
+                    "digital_assets",
+                    "digital_assets_recon",
+                    "hacking_discussions",
+                    "hacking_discussions_aggr",
+                    "leaked_credentials",
+                    "leaked_credentials_hacking_discussions",
+                    "network_vulnerabilities",
+                    "credit_cards",
+                    "SubsDldSourceCode",
+                    "SubsBotnets"
+                ],
+                "enum": [
+                    "data",
+                    "bins",
+                    "DataGenesis",
+                    "DataRussianMarket",
+                    "DataAgressor",
+                    "DataDldSourceCodeDiffs",
+                    "DataTelegram",
+                    "DataDiscord",
+                    "DataMagbo",
+                    "DataIntelligenceReports",
+                    "DataLeakedCredentialsCitadel",
+                    "LeakedCredentialsInstantMessaging",
+                    "LeakedCredentialsCompromisedAccount",
+                    "UASMarketData",
+                    "SocialData",
+                    "TelegramMetaData",
+                    "digital_assets",
+                    "digital_assets_recon",
+                    "hacking_discussions",
+                    "hacking_discussions_aggr",
+                    "leaked_credentials",
+                    "leaked_credentials_hacking_discussions",
+                    "network_vulnerabilities",
+                    "credit_cards",
+                    "SubsDldSourceCode",
+                    "SubsBotnets"
+                ]
+            },
+            "RadarkManualIndexDataUploaderReq": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["uploader", "source", "crawlerTitle", "title", "body", "postedDate", "date", "url", "shouldCrawl"],
+                "properties": {
+                    "uploader": { "type": "string", "minLength": 1 },
+                    "source": { "type": "string", "minLength": 1 },
+                    "crawlerTitle": { "type": "string", "minLength": 1 },
+                    "title": { "type": "string", "minLength": 1 },
+                    "body": { "type": "string", "minLength": 1 },
+                    "postedDate": { "type": "string", "format": "date-time", "minLength": 1 },
+                    "date": { "type": "string", "format": "date-time", "minLength": 1 },
+                    "url": { "type": "string", "minLength": 1 },
+                    "shouldCrawl": { "type": "boolean" },
+                    "userName": { "type": "string" },
+                    "screenshotBase64": { "type": "string" }
+                }
+            },
+            "ReportDataReq": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["intelligenceReport"],
+                "properties": {
+                    "intelligenceReport": { "$ref": "#/components/schemas/IntelligenceReportsDto" },
+                    "dataBase64": { "type": "string", "nullable": true },
+                    "imageBase64": { "type": "string", "nullable": true },
+                    "imageType": { "type": "string", "nullable": true },
+                    "threatActorsNames": { "type": "array", "nullable": true, "items": { "type": "string" } },
+                    "references": { "type": "array", "nullable": true, "items": { "$ref": "#/components/schemas/ReferenceData" } },
+                    "tags": { "type": "array", "nullable": true, "items": { "type": "string" } },
+                    "externalSources": { "type": "array", "nullable": true, "items": { "type": "string" } }
+                }
+            },
+            "IntelligenceReportsDto": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["title", "summary", "type", "source", "postedDate"],
+                "properties": {
+                    "id": { "type": "string", "nullable": true },
+                    "fileName": { "type": "string", "nullable": true },
+                    "fileType": { "type": "string", "nullable": true },
+                    "title": { "type": "string", "minLength": 1 },
+                    "summary": { "type": "string", "minLength": 1 },
+                    "type": { "type": "string", "maxLength": 512, "minLength": 0 },
+                    "source": { "type": "string", "maxLength": 255, "minLength": 0 },
+                    "postedDate": { "type": "string", "format": "date-time", "minLength": 1 },
+                    "indexedDate": { "type": "string", "format": "date-time", "nullable": true },
+                    "dataFileKey": { "type": "string", "nullable": true },
+                    "imageFileKey": { "type": "string", "nullable": true },
+                    "reportType": { "type": "string", "nullable": true },
+                    "sector": { "type": "string", "nullable": true },
+                    "geography": { "type": "string", "nullable": true },
+                    "tlp": { "type": "integer", "format": "int32", "nullable": true }
+                }
+            },
+            "ReferenceData": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["index_name", "reference_id"],
+                "properties": { "index_name": { "type": "string", "minLength": 1 }, "reference_id": { "type": "string", "minLength": 1 } }
+            },
+            "ExtractedItemBase": {
+                "type": "object",
+                "x-abstract": true,
+                "additionalProperties": false,
+                "properties": { "metadata": { "type": "array", "items": { "$ref": "#/components/schemas/ExtractedMetadata" } } }
+            },
+            "ExtractedMetadata": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "raw": { "type": "string" },
+                    "source_field": { "type": "string" },
+                    "text_index": { "type": "integer", "format": "int32" },
+                    "text_length": { "type": "integer", "format": "int32" }
+                }
             }
-          },
-          "xml": {
-            "name": "Order"
-          }
-        },
-        "Category": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "xml": {
-            "name": "Category"
-          }
-        },
-        "User": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "username": {
-              "type": "string"
-            },
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "password": {
-              "type": "string"
-            },
-            "phone": {
-              "type": "string"
-            },
-            "userStatus": {
-              "type": "integer",
-              "description": "User Status",
-              "format": "int32"
-            }
-          },
-          "xml": {
-            "name": "User"
-          }
-        },
-        "Tag": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "xml": {
-            "name": "Tag"
-          }
-        },
-        "Pet": {
-          "required": [
-            "name",
-            "photoUrls"
-          ],
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "category": {
-              "$ref": "#/components/schemas/Category"
-            },
-            "name": {
-              "type": "string",
-              "example": "doggie"
-            },
-            "photoUrls": {
-              "type": "array",
-              "xml": {
-                "name": "photoUrl",
-                "wrapped": true
-              },
-              "items": {
-                "type": "string"
-              }
-            },
-            "tags": {
-              "type": "array",
-              "xml": {
-                "name": "tag",
-                "wrapped": true
-              },
-              "items": {
-                "$ref": "#/components/schemas/Tag"
-              }
-            },
-            "status": {
-              "type": "string",
-              "description": "pet status in the store",
-              "enum": [
-                "available",
-                "pending",
-                "sold"
-              ]
-            }
-          },
-          "xml": {
-            "name": "Pet"
-          }
-        },
-        "ApiResponse": {
-          "type": "object",
-          "properties": {
-            "code": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "type": {
-              "type": "string"
-            },
-            "message": {
-              "type": "string"
-            }
-          }
         }
-      },
-      "securitySchemes": {
-        "petstore_auth": {
-          "type": "oauth2",
-          "flows": {
-            "implicit": {
-              "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
-              "scopes": {
-                "write:pets": "modify pets in your account",
-                "read:pets": "read your pets"
-              }
-            }
-          }
-        },
-        "api_key": {
-          "type": "apiKey",
-          "name": "api_key",
-          "in": "header"
-        }
-      }
     }
-  }
+}
