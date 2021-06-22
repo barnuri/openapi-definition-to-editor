@@ -11,7 +11,7 @@
         "url": "/"
       },
       {
-        "url": "localhost:5000"
+        "url": "indexing-api-test.ke-la.private:5000"
       },
       {
         "url": ""
@@ -28,9 +28,10 @@
             "200": {
               "description": "",
               "content": {
-                "application/json": {
+                "application/octet-stream": {
                   "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -48,9 +49,10 @@
             "200": {
               "description": "",
               "content": {
-                "application/json": {
+                "application/octet-stream": {
                   "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -68,9 +70,10 @@
             "200": {
               "description": "",
               "content": {
-                "application/json": {
+                "application/octet-stream": {
                   "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -91,48 +94,6 @@
                 "application/json": {
                   "schema": {
                     "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/CrawlerCleaner/Auth/{aa}": {
-        "delete": {
-          "tags": [
-            "CrawlerCleaner"
-          ],
-          "operationId": "CrawlerCleaner_Test",
-          "parameters": [
-            {
-              "name": "crawlerTitle",
-              "in": "header",
-              "schema": {
-                "type": "string",
-                "nullable": true
-              },
-              "x-position": 1
-            },
-            {
-              "name": "aa",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int32",
-                "nullable": true
-              },
-              "x-position": 2
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "boolean"
                   }
                 }
               }
@@ -368,6 +329,48 @@
           }
         }
       },
+      "/CrawlerMonitor/CleanOldQueues": {
+        "delete": {
+          "tags": [
+            "CrawlerMonitor"
+          ],
+          "operationId": "CrawlerMonitor_CleanOldQueues",
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerMonitor/StuckIndexingQueues": {
+        "get": {
+          "tags": [
+            "CrawlerMonitor"
+          ],
+          "operationId": "CrawlerMonitor_GetStuckIndexingQueues",
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/octet-stream": {
+                  "schema": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "/CrawlerMonitor/NewTelegramCrawler": {
         "post": {
           "tags": [
@@ -484,12 +487,198 @@
           }
         }
       },
-      "/CrawlingTasks/RenewAllFailed": {
+      "/CrawlerMonitor/KnowCategoriesTable": {
+        "get": {
+          "tags": [
+            "CrawlerMonitor"
+          ],
+          "operationId": "CrawlerMonitor_KnowCategoriesTable",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerMonitor/TaskPoolCurrentAmmout": {
+        "get": {
+          "tags": [
+            "CrawlerMonitor"
+          ],
+          "operationId": "CrawlerMonitor_TaskPoolCurrentAmmout",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerMonitor/AverageTaskPoolHandlingTime": {
+        "get": {
+          "tags": [
+            "CrawlerMonitor"
+          ],
+          "operationId": "CrawlerMonitor_AverageTaskPoolHandlingTime",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerMonitor/AverageTaskPoolRate": {
+        "get": {
+          "tags": [
+            "CrawlerMonitor"
+          ],
+          "operationId": "CrawlerMonitor_AverageTaskPoolRate",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerMonitor/CheckTaskStatus": {
         "post": {
           "tags": [
-            "CrawlingTasks"
+            "CrawlerMonitor"
           ],
-          "operationId": "CrawlingTasks_RenewAll",
+          "operationId": "CrawlerMonitor_CheckTaskStatus",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            },
+            {
+              "name": "url",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 2
+            },
+            {
+              "name": "pageKey",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 3
+            },
+            {
+              "name": "runningMode",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/IndexerRunningMode"
+              },
+              "x-position": 4
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/octet-stream": {
+                  "schema": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerMonitor/RenewAllFailedTasks": {
+        "post": {
+          "tags": [
+            "CrawlerMonitor"
+          ],
+          "operationId": "CrawlerMonitor_RenewAll",
           "parameters": [
             {
               "name": "crawlerTitle",
@@ -508,6 +697,215 @@
                 "application/json": {
                   "schema": {
                     "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerScheduling/TriggerCronJob": {
+        "post": {
+          "tags": [
+            "CrawlerScheduling"
+          ],
+          "operationId": "CrawlerScheduling_TriggerCronJob",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            },
+            {
+              "name": "runningMode",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/IndexerRunningMode"
+              },
+              "x-position": 2
+            },
+            {
+              "name": "instances",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "x-position": 3
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/octet-stream": {
+                  "schema": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerScheduling/StopCronJob": {
+        "post": {
+          "tags": [
+            "CrawlerScheduling"
+          ],
+          "operationId": "CrawlerScheduling_StopCronJob",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            },
+            {
+              "name": "runningMode",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/IndexerRunningMode"
+              },
+              "x-position": 2
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/octet-stream": {
+                  "schema": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerScheduling/ResetCronJobs": {
+        "post": {
+          "tags": [
+            "CrawlerScheduling"
+          ],
+          "operationId": "CrawlerScheduling_ResetCronJobs",
+          "parameters": [
+            {
+              "name": "crawlerTitle",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "nullable": true
+              },
+              "x-position": 1
+            },
+            {
+              "name": "runningMode",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/IndexerRunningMode"
+              },
+              "x-position": 2
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerScheduling/ResetAllCronJobs": {
+        "post": {
+          "tags": [
+            "CrawlerScheduling"
+          ],
+          "operationId": "CrawlerScheduling_ResetAllCronJobs",
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/CrawlerScheduling/AllCronJobs": {
+        "delete": {
+          "tags": [
+            "CrawlerScheduling"
+          ],
+          "operationId": "CrawlerScheduling_DeleteAllCronJobs",
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/octet-stream": {
+                  "schema": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/Images/CheckImagesFromSource": {
+        "post": {
+          "tags": [
+            "Images"
+          ],
+          "operationId": "Images_CheckImagesFromSource",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "File": {
+                      "type": "string",
+                      "format": "binary",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -580,7 +978,7 @@
           }
         }
       },
-      "/PurchasedBots/Upload": {
+      "/PurchasedBots/UploadBase64": {
         "post": {
           "tags": [
             "PurchasedBots"
@@ -612,7 +1010,7 @@
           }
         }
       },
-      "/PurchasedBots/Upload2": {
+      "/PurchasedBots/UploadFile": {
         "post": {
           "tags": [
             "PurchasedBots"
@@ -651,12 +1049,7 @@
               "description": "",
               "content": {
                 "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ValueTupleOfBotParserReqAndBoolean"
-                    }
-                  }
+                  "schema": {}
                 }
               }
             }
@@ -668,13 +1061,20 @@
           "tags": [
             "PurchasedBots"
           ],
-          "operationId": "PurchasedBots_ParseBot",
+          "operationId": "PurchasedBots_Parse",
           "requestBody": {
             "x-name": "req",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BotParserReq"
+                },
+                "examples": {
+                  "example - 1": {
+                    "value": {
+                      "key": "RussainMarket/raw/$TYPE/LOGID-$BOTID.zip"
+                    }
+                  }
                 }
               }
             },
@@ -695,12 +1095,12 @@
           }
         }
       },
-      "/PurchasedBots/Parse2": {
+      "/PurchasedBots/MultiParse": {
         "post": {
           "tags": [
             "PurchasedBots"
           ],
-          "operationId": "PurchasedBots_ParseBots",
+          "operationId": "PurchasedBots_MultiParse",
           "requestBody": {
             "x-name": "reqs",
             "content": {
@@ -710,6 +1110,18 @@
                   "items": {
                     "$ref": "#/components/schemas/BotParserReq"
                   }
+                },
+                "examples": {
+                  "example - 1": {
+                    "value": [
+                      {
+                        "key": "RussainMarket/raw/$TYPE/LOGID-$BOTID.zip"
+                      },
+                      {
+                        "key": "RussainMarket/raw/$TYPE/LOGID-$BOTID.zip"
+                      }
+                    ]
+                  }
                 }
               }
             },
@@ -721,41 +1133,83 @@
               "description": "",
               "content": {
                 "application/json": {
-                  "schema": {
-                    "type": "boolean"
-                  }
+                  "schema": {}
                 }
               }
             }
           }
         }
       },
-      "/PurchasedBots/ParseAndUpload": {
+      "/PurchasedBots/SmartUpload": {
         "post": {
           "tags": [
             "PurchasedBots"
           ],
-          "operationId": "PurchasedBots_ParseAndUpload",
+          "operationId": "PurchasedBots_SmartUpload",
           "requestBody": {
-            "x-name": "req",
             "content": {
-              "application/json": {
+              "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/BotUploaderReq"
+                  "type": "object",
+                  "properties": {
+                    "ZipFile": {
+                      "type": "string",
+                      "format": "binary",
+                      "nullable": true
+                    },
+                    "WithoutParse": {
+                      "type": "boolean"
+                    },
+                    "TryGuess": {
+                      "type": "boolean"
+                    }
+                  }
                 }
               }
-            },
-            "required": true,
-            "x-position": 1
+            }
           },
           "responses": {
             "200": {
               "description": "",
               "content": {
                 "application/json": {
-                  "schema": {
-                    "type": "boolean"
-                  }
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/PurchasedBots/ReparseByType": {
+        "post": {
+          "tags": [
+            "PurchasedBots"
+          ],
+          "operationId": "PurchasedBots_ReparseByType",
+          "parameters": [
+            {
+              "name": "sourceType",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/BotnetSourceType"
+              },
+              "x-position": 1
+            },
+            {
+              "name": "botType",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/BotnetBotType"
+              },
+              "x-position": 2
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {}
                 }
               }
             }
@@ -963,6 +1417,11 @@
               "type": "integer",
               "format": "int32",
               "nullable": false
+            },
+            "filteredCardingBaseCrawler": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
             }
           },
           "x-enumNames": [
@@ -975,7 +1434,8 @@
             "DiscordBaseCrawler",
             "SinglePageCrawler",
             "ManualCrawler",
-            "CdnCrawler"
+            "CdnCrawler",
+            "FilteredCardingBaseCrawler"
           ],
           "enum": [
             "MetaCrawlerBaseCrawler",
@@ -987,7 +1447,8 @@
             "DiscordBaseCrawler",
             "SinglePageCrawler",
             "ManualCrawler",
-            "CdnCrawler"
+            "CdnCrawler",
+            "FilteredCardingBaseCrawler"
           ]
         },
         "TypesForMonitor": {
@@ -1098,6 +1559,14 @@
                 }
               ]
             },
+            "cdn_Settings": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CdnIndexingSettings"
+                }
+              ]
+            },
             "images_Manager": {
               "nullable": true,
               "oneOf": [
@@ -1110,7 +1579,7 @@
               "nullable": true,
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/AuthenticationSettings"
+                  "$ref": "#/components/schemas/AuthSettingsTab"
                 }
               ]
             },
@@ -1126,7 +1595,7 @@
               "nullable": true,
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/WebServiceSettings"
+                  "$ref": "#/components/schemas/WebServiceConfig"
                 }
               ]
             },
@@ -1135,6 +1604,22 @@
               "oneOf": [
                 {
                   "$ref": "#/components/schemas/AttributesExample"
+                }
+              ]
+            },
+            "new_Only_Mapping": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/NewOnlyMappingSettings"
+                }
+              ]
+            },
+            "new_Only_Indexing": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/NewOnlyIndexingSettings"
                 }
               ]
             }
@@ -1157,6 +1642,10 @@
               "nullable": true
             },
             "isDynamicCrawler": {
+              "type": "boolean",
+              "nullable": true
+            },
+            "isLoginUnnecessary": {
               "type": "boolean",
               "nullable": true
             },
@@ -1282,6 +1771,16 @@
               "type": "integer",
               "format": "int32",
               "nullable": false
+            },
+            "dynamic": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "notDynamic": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
             }
           },
           "x-enumNames": [
@@ -1297,7 +1796,9 @@
             "Pastes",
             "Ransomware",
             "SearchCarding",
-            "Telegram"
+            "Telegram",
+            "Dynamic",
+            "NotDynamic"
           ],
           "enum": [
             "Discord",
@@ -1312,7 +1813,9 @@
             "Pastes",
             "Ransomware",
             "SearchCarding",
-            "Telegram"
+            "Telegram",
+            "Dynamic",
+            "NotDynamic"
           ]
         },
         "CrawlerMetadata": {
@@ -1494,6 +1997,11 @@
               "format": "int32",
               "nullable": true
             },
+            "defaultMaxInstances": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
             "cycleGroup": {
               "type": "string",
               "nullable": true
@@ -1509,10 +2017,25 @@
               "format": "int32",
               "nullable": true
             },
+            "authorReCrawlerIntervalMin": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
             "runningModes": {
               "type": "array",
               "items": {
                 "$ref": "#/components/schemas/IndexerRunningMode"
+              }
+            },
+            "scheduling": {
+              "type": "object",
+              "default": {},
+              "x-dictionaryKey": {
+                "$ref": "#/components/schemas/IndexerRunningMode"
+              },
+              "additionalProperties": {
+                "$ref": "#/components/schemas/RunningModeSchedulingConfig"
               }
             }
           }
@@ -1566,6 +2089,16 @@
               "format": "int32",
               "nullable": false
             },
+            "newOnlyMapping": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "newOnlyIndexing": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
             "value__": {
               "type": "integer",
               "format": "int32",
@@ -1581,7 +2114,9 @@
             "DeepMapping",
             "CdnIndexing",
             "Author",
-            "AuthorsParsing"
+            "AuthorsParsing",
+            "NewOnlyMapping",
+            "NewOnlyIndexing"
           ],
           "enum": [
             "Mapping",
@@ -1592,7 +2127,312 @@
             "DeepMapping",
             "CdnIndexing",
             "Author",
-            "AuthorsParsing"
+            "AuthorsParsing",
+            "NewOnlyMapping",
+            "NewOnlyIndexing"
+          ]
+        },
+        "RunningModeSchedulingConfig": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "maxInstances",
+            "period"
+          ],
+          "properties": {
+            "maxInstances": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "period": {
+              "$ref": "#/components/schemas/K8sSchedulePeriod"
+            },
+            "cpuLimit": {
+              "default": 0,
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/K8sCpuLimit"
+                }
+              ]
+            },
+            "memoryLimit": {
+              "default": 2,
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/K8sMemoryLimit"
+                }
+              ]
+            },
+            "cpuRequest": {
+              "default": 1,
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/K8sCpuRequest"
+                }
+              ]
+            },
+            "memoryRequest": {
+              "default": 1,
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/K8sMemoryRequest"
+                }
+              ]
+            }
+          }
+        },
+        "K8sSchedulePeriod": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every1Min": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every5Mins": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every15Mins": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every1Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every2Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every3Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every4Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every6Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every8Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every12Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "every24Hours": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "Every1Min",
+            "Every5Mins",
+            "Every15Mins",
+            "Every1Hours",
+            "Every2Hours",
+            "Every3Hours",
+            "Every4Hours",
+            "Every6Hours",
+            "Every8Hours",
+            "Every12Hours",
+            "Every24Hours"
+          ],
+          "enum": [
+            "Every1Min",
+            "Every5Mins",
+            "Every15Mins",
+            "Every1Hours",
+            "Every2Hours",
+            "Every3Hours",
+            "Every4Hours",
+            "Every6Hours",
+            "Every8Hours",
+            "Every12Hours",
+            "Every24Hours"
+          ]
+        },
+        "K8sCpuLimit": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "m400": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "m1000": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "m4000": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "M400",
+            "M1000",
+            "M4000"
+          ],
+          "enum": [
+            "M400",
+            "M1000",
+            "M4000"
+          ]
+        },
+        "K8sMemoryLimit": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "oneAndHalfGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "twoGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "fourGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "fiveGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "OneAndHalfGB",
+            "TwoGB",
+            "FourGB",
+            "FiveGB"
+          ],
+          "enum": [
+            "OneAndHalfGB",
+            "TwoGB",
+            "FourGB",
+            "FiveGB"
+          ]
+        },
+        "K8sCpuRequest": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "m100": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "m400": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "M100",
+            "M400"
+          ],
+          "enum": [
+            "M100",
+            "M400"
+          ]
+        },
+        "K8sMemoryRequest": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "halfGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "oneGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "oneAndHalfGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "twoGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "twoAndHalfGB": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "HalfGB",
+            "OneGB",
+            "OneAndHalfGB",
+            "TwoGB",
+            "TwoAndHalfGB"
+          ],
+          "enum": [
+            "HalfGB",
+            "OneGB",
+            "OneAndHalfGB",
+            "TwoGB",
+            "TwoAndHalfGB"
           ]
         },
         "HistoryAndMapping": {
@@ -1645,9 +2485,6 @@
                 "isLoginUnnecessary": {
                   "type": "boolean"
                 },
-                "isUsingWebDriver": {
-                  "type": "boolean"
-                },
                 "isEnabled": {
                   "type": "boolean"
                 },
@@ -1688,6 +2525,7 @@
                 },
                 "sourceGroups": {
                   "type": "array",
+                  "default": [],
                   "items": {
                     "type": "integer",
                     "format": "int32"
@@ -1705,15 +2543,9 @@
                 },
                 "runningModes": {
                   "type": "array",
+                  "default": [],
                   "items": {
                     "$ref": "#/components/schemas/IndexerRunningMode"
-                  }
-                },
-                "monitorGroups": {
-                  "type": "array",
-                  "nullable": true,
-                  "items": {
-                    "$ref": "#/components/schemas/MonitorGroupEnum"
                   }
                 },
                 "cycleGroup": {
@@ -1723,6 +2555,9 @@
                   "type": "boolean"
                 },
                 "isUsingFictiveUrl": {
+                  "type": "boolean"
+                },
+                "parsingLinksNewFormat": {
                   "type": "boolean"
                 }
               }
@@ -1793,7 +2628,8 @@
               "minLength": 1
             },
             "shouldExist": {
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             "type": {
               "$ref": "#/components/schemas/IndicatorType"
@@ -1855,6 +2691,7 @@
             },
             "actions": {
               "type": "array",
+              "default": [],
               "items": {
                 "$ref": "#/components/schemas/DriverAction"
               }
@@ -1869,6 +2706,10 @@
             },
             "isMiddleSession": {
               "type": "boolean"
+            },
+            "retries": {
+              "type": "integer",
+              "format": "int32"
             }
           }
         },
@@ -2000,6 +2841,12 @@
                       ]
                     },
                     "submitScript": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "cssForm": {
                       "type": [
                         "null",
                         "string"
@@ -2522,6 +3369,155 @@
                   }
                 }
               ]
+            },
+            {
+              "title": "QuestionCaptchaSettings",
+              "definitions": {
+                "ElementSelector": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/7/definitions/ElementSelectorType"
+                    }
+                  }
+                },
+                "ElementSelectorType": {
+                  "type": "integer",
+                  "description": "",
+                  "x-enumNames": [
+                    "XPath",
+                    "Css"
+                  ],
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "ChallengeSettings": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/7/definitions/MongoBaseDocument"
+                    },
+                    {
+                      "type": "object",
+                      "x-abstract": true,
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "MongoBaseDocument": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "_t": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ChallengeSettings/anyOf/7/definitions/ChallengeSettings"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "qustionSelector": {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/7/definitions/ElementSelector"
+                    },
+                    "inputSelector": {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/7/definitions/ElementSelector"
+                    },
+                    "qustionsAndAnswersDictionary": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "title": "WriteFromTextCaptchaSettings",
+              "definitions": {
+                "ElementSelector": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/8/definitions/ElementSelectorType"
+                    }
+                  }
+                },
+                "ElementSelectorType": {
+                  "type": "integer",
+                  "description": "",
+                  "x-enumNames": [
+                    "XPath",
+                    "Css"
+                  ],
+                  "enum": [
+                    0,
+                    1
+                  ]
+                },
+                "ChallengeSettings": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/8/definitions/MongoBaseDocument"
+                    },
+                    {
+                      "type": "object",
+                      "x-abstract": true,
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "MongoBaseDocument": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "_t": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ChallengeSettings/anyOf/8/definitions/ChallengeSettings"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "inputSelector": {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/8/definitions/ElementSelector"
+                    },
+                    "textToWriteSelector": {
+                      "$ref": "#/components/schemas/ChallengeSettings/anyOf/8/definitions/ElementSelector"
+                    },
+                    "textRegex": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
@@ -2887,10 +3883,6 @@
                     }
                   ]
                 },
-                "softRequestLimit": {
-                  "type": "integer",
-                  "format": "int32"
-                },
                 "indexingWebPageExpectedType": {
                   "nullable": true,
                   "oneOf": [
@@ -2899,56 +3891,23 @@
                     }
                   ]
                 },
-                "dataContainerSelector": {
-                  "$ref": "#/components/schemas/NewCrawlerSelector"
-                },
-                "attachmentsSelector": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/NewCrawlerSelector"
-                    }
-                  ]
-                },
-                "inlineImageSelector": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/NewCrawlerSelector"
-                    }
-                  ]
-                },
-                "inlineImagesContainerSelector": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/NewCrawlerSelector"
-                    }
-                  ]
-                },
-                "scrapeInlineImages": {
-                  "type": "boolean"
-                },
-                "scrapeLinkedImages": {
-                  "type": "boolean"
-                },
-                "disableScreenshotDownload": {
-                  "type": "boolean"
-                },
-                "disableStreamDownload": {
-                  "type": "boolean"
-                },
                 "indexingVisualizationOptions": {
                   "type": "array",
+                  "default": [
+                    2,
+                    1
+                  ],
                   "items": {
                     "$ref": "#/components/schemas/VisualizationOptions"
                   }
                 },
-                "parsingSettings": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ParsingRunningModeSettingsForIndexing"
-                  }
+                "indexingCdnImagesSelector": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/NewCrawlerSelector"
+                    }
+                  ]
                 }
               }
             }
@@ -3650,14 +4609,17 @@
                           "type": "string",
                           "minLength": 1
                         },
+                        "selectorQueryType": {
+                          "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/SelectorQueryType"
+                        },
+                        "extractImages": {
+                          "type": "boolean"
+                        },
                         "propertyPicker": {
                           "type": [
                             "null",
                             "string"
                           ]
-                        },
-                        "selectorQueryType": {
-                          "$ref": "#/components/schemas/AfterRequestLogic/anyOf/1/definitions/SelectorQueryType"
                         },
                         "cleaningRegex": {
                           "type": "string"
@@ -3679,9 +4641,6 @@
                         },
                         "formatText": {
                           "type": "string"
-                        },
-                        "extractImages": {
-                          "type": "boolean"
                         }
                       }
                     }
@@ -4024,14 +4983,17 @@
                           "type": "string",
                           "minLength": 1
                         },
+                        "selectorQueryType": {
+                          "$ref": "#/components/schemas/AfterRequestLogic/anyOf/3/definitions/SelectorQueryType"
+                        },
+                        "extractImages": {
+                          "type": "boolean"
+                        },
                         "propertyPicker": {
                           "type": [
                             "null",
                             "string"
                           ]
-                        },
-                        "selectorQueryType": {
-                          "$ref": "#/components/schemas/AfterRequestLogic/anyOf/3/definitions/SelectorQueryType"
                         },
                         "cleaningRegex": {
                           "type": "string"
@@ -4053,9 +5015,6 @@
                         },
                         "formatText": {
                           "type": "string"
-                        },
-                        "extractImages": {
-                          "type": "boolean"
                         }
                       }
                     }
@@ -4179,6 +5138,43 @@
             "Text"
           ]
         },
+        "VisualizationOptions": {
+          "type": "string",
+          "description": "",
+          "x-enumFlags": true,
+          "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "none": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "pdf": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "screenshot": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "None",
+            "Pdf",
+            "Screenshot"
+          ],
+          "enum": [
+            "None",
+            "Pdf",
+            "Screenshot"
+          ]
+        },
         "NewCrawlerSelector": {
           "allOf": [
             {
@@ -4198,12 +5194,15 @@
                   "type": "string",
                   "minLength": 1
                 },
+                "selectorQueryType": {
+                  "$ref": "#/components/schemas/SelectorQueryType"
+                },
+                "extractImages": {
+                  "type": "boolean"
+                },
                 "propertyPicker": {
                   "type": "string",
                   "nullable": true
-                },
-                "selectorQueryType": {
-                  "$ref": "#/components/schemas/SelectorQueryType"
                 },
                 "cleaningRegex": {
                   "type": "string"
@@ -4223,9 +5222,6 @@
                 },
                 "formatText": {
                   "type": "string"
-                },
-                "extractImages": {
-                  "type": "boolean"
                 }
               }
             }
@@ -4278,14 +5274,17 @@
                           "type": "string",
                           "minLength": 1
                         },
+                        "selectorQueryType": {
+                          "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/SelectorQueryType"
+                        },
+                        "extractImages": {
+                          "type": "boolean"
+                        },
                         "propertyPicker": {
                           "type": [
                             "null",
                             "string"
                           ]
-                        },
-                        "selectorQueryType": {
-                          "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/0/definitions/SelectorQueryType"
                         },
                         "cleaningRegex": {
                           "type": "string"
@@ -4307,9 +5306,6 @@
                         },
                         "formatText": {
                           "type": "string"
-                        },
-                        "extractImages": {
-                          "type": "boolean"
                         }
                       }
                     }
@@ -4419,14 +5415,17 @@
                           "type": "string",
                           "minLength": 1
                         },
+                        "selectorQueryType": {
+                          "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/1/definitions/SelectorQueryType"
+                        },
+                        "extractImages": {
+                          "type": "boolean"
+                        },
                         "propertyPicker": {
                           "type": [
                             "null",
                             "string"
                           ]
-                        },
-                        "selectorQueryType": {
-                          "$ref": "#/components/schemas/NewCrawlerSelector/anyOf/1/definitions/SelectorQueryType"
                         },
                         "cleaningRegex": {
                           "type": "string"
@@ -4448,9 +5447,6 @@
                         },
                         "formatText": {
                           "type": "string"
-                        },
-                        "extractImages": {
-                          "type": "boolean"
                         }
                       }
                     }
@@ -4595,48 +5591,116 @@
             "Clean"
           ]
         },
-        "VisualizationOptions": {
-          "type": "string",
-          "description": "",
-          "x-enumFlags": true,
-          "properties": {
-            "value__": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
+        "AuthorSettings": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/CrawlerBaseConfig"
             },
-            "none": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "pdf": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "screenshot": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "authorAfterRequestLogic": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AfterRequestLogic"
+                    }
+                  ]
+                },
+                "indexingWebPageExpectedType": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WebNodeType"
+                    }
+                  ]
+                },
+                "authorUrlRegex": {
+                  "type": "string"
+                },
+                "indexingVisualizationOptions": {
+                  "type": "array",
+                  "default": [
+                    2,
+                    1
+                  ],
+                  "items": {
+                    "$ref": "#/components/schemas/VisualizationOptions"
+                  }
+                },
+                "brokenSourceIndicators": {
+                  "type": "array",
+                  "default": [],
+                  "items": {
+                    "$ref": "#/components/schemas/Indicator"
+                  }
+                }
+              }
             }
-          },
-          "x-enumNames": [
-            "None",
-            "Pdf",
-            "Screenshot"
-          ],
-          "enum": [
-            "None",
-            "Pdf",
-            "Screenshot"
           ]
         },
-        "ParsingRunningModeSettingsForIndexing": {
+        "ParsingSettingsConfig": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/CrawlerBaseConfig"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "dataContainerSelector": {
+                  "$ref": "#/components/schemas/NewCrawlerSelector"
+                },
+                "topicContainerSelector": {
+                  "$ref": "#/components/schemas/NewCrawlerSelector"
+                },
+                "parsingSettings": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ParsingRunningModeSettings"
+                  }
+                },
+                "authorUrlRegex": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "authorUrlDictPath": {
+                  "type": "string",
+                  "default": "UserURL"
+                },
+                "authorPostedDataPath": {
+                  "type": "string",
+                  "default": "PostedDate"
+                },
+                "imagesFolder": {
+                  "type": "string",
+                  "default": "hacking-discussions-images"
+                },
+                "brokenSourceIndicators": {
+                  "type": "array",
+                  "default": [],
+                  "items": {
+                    "$ref": "#/components/schemas/Indicator"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "ParsingRunningModeSettings": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "authorsPartialDataIndicators": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/components/schemas/Indicator"
+              }
+            },
             "dedicatedRunningMode": {
+              "default": 2,
               "nullable": true,
               "oneOf": [
                 {
@@ -4644,10 +5708,28 @@
                 }
               ]
             },
+            "shouldTrim": {
+              "type": "boolean"
+            },
             "dataSelectorsArray": {
               "type": "array",
+              "default": [],
               "items": {
                 "$ref": "#/components/schemas/ParsingSelector"
+              }
+            },
+            "processActions": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/components/schemas/ProcessAction"
+              }
+            },
+            "dataValidation": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/components/schemas/DataValidation"
               }
             }
           }
@@ -4674,6 +5756,7 @@
                   }
                 },
                 "dataLocation": {
+                  "default": 1,
                   "$ref": "#/components/schemas/DataLocation"
                 }
               }
@@ -4709,170 +5792,6 @@
             "MainPage",
             "ExtraPages"
           ]
-        },
-        "AuthorSettings": {
-          "allOf": [
-            {
-              "$ref": "#/components/schemas/CrawlerBaseConfig"
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "authorAfterRequestLogic": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/AfterRequestLogic"
-                    }
-                  ]
-                },
-                "softRequestLimit": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "indexingWebPageExpectedType": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/WebNodeType"
-                    }
-                  ]
-                },
-                "authorUrlRegex": {
-                  "type": "string"
-                },
-                "disableScreenshotDownload": {
-                  "type": "boolean"
-                },
-                "disableStreamDownload": {
-                  "type": "boolean"
-                },
-                "parsingSettings": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ParsingRunningModeSettingsForIndexing"
-                  }
-                },
-                "indexingVisualizationOptions": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VisualizationOptions"
-                  }
-                },
-                "brokenSourceIndicators": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Indicator"
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "ParsingSettingsConfig": {
-          "allOf": [
-            {
-              "$ref": "#/components/schemas/CrawlerBaseConfig"
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "dataContainerSelector": {
-                  "$ref": "#/components/schemas/NewCrawlerSelector"
-                },
-                "topicContainerSelector": {
-                  "$ref": "#/components/schemas/NewCrawlerSelector"
-                },
-                "parsingSettings": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ParsingRunningModeSettings"
-                  }
-                },
-                "authorUrlRegex": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "authorUrlDictPath": {
-                  "type": "string"
-                },
-                "inlineImageSelector": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/NewCrawlerSelector"
-                    }
-                  ]
-                },
-                "attachmentsSelector": {
-                  "nullable": true,
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/NewCrawlerSelector"
-                    }
-                  ]
-                },
-                "scrapeInlineImages": {
-                  "type": "boolean"
-                },
-                "scrapeLinkedImages": {
-                  "type": "boolean"
-                },
-                "imagesFolder": {
-                  "type": "string"
-                },
-                "deletedIndicators": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Indicator"
-                  }
-                },
-                "brokenSourceIndicators": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Indicator"
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "ParsingRunningModeSettings": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "dedicatedRunningMode": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IndexerRunningMode"
-                }
-              ]
-            },
-            "shouldTrim": {
-              "type": "boolean"
-            },
-            "dataSelectorsArray": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ParsingSelector"
-              }
-            },
-            "processActions": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ProcessAction"
-              }
-            },
-            "dataValidation": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/DataValidation"
-              }
-            }
-          }
         },
         "ProcessAction": {
           "allOf": [
@@ -5454,14 +6373,17 @@
                           "type": "string",
                           "minLength": 1
                         },
+                        "selectorQueryType": {
+                          "$ref": "#/components/schemas/ProcessAction/anyOf/9/definitions/SelectorQueryType"
+                        },
+                        "extractImages": {
+                          "type": "boolean"
+                        },
                         "propertyPicker": {
                           "type": [
                             "null",
                             "string"
                           ]
-                        },
-                        "selectorQueryType": {
-                          "$ref": "#/components/schemas/ProcessAction/anyOf/9/definitions/SelectorQueryType"
                         },
                         "cleaningRegex": {
                           "type": "string"
@@ -5483,9 +6405,6 @@
                         },
                         "formatText": {
                           "type": "string"
-                        },
-                        "extractImages": {
-                          "type": "boolean"
                         }
                       }
                     }
@@ -5660,14 +6579,17 @@
                           "type": "string",
                           "minLength": 1
                         },
+                        "selectorQueryType": {
+                          "$ref": "#/components/schemas/ProcessAction/anyOf/10/definitions/SelectorQueryType"
+                        },
+                        "extractImages": {
+                          "type": "boolean"
+                        },
                         "propertyPicker": {
                           "type": [
                             "null",
                             "string"
                           ]
-                        },
-                        "selectorQueryType": {
-                          "$ref": "#/components/schemas/ProcessAction/anyOf/10/definitions/SelectorQueryType"
                         },
                         "cleaningRegex": {
                           "type": "string"
@@ -5689,9 +6611,6 @@
                         },
                         "formatText": {
                           "type": "string"
-                        },
-                        "extractImages": {
-                          "type": "boolean"
                         }
                       }
                     }
@@ -6109,14 +7028,17 @@
                           "type": "string",
                           "minLength": 1
                         },
+                        "selectorQueryType": {
+                          "$ref": "#/components/schemas/ProcessAction/anyOf/15/definitions/SelectorQueryType"
+                        },
+                        "extractImages": {
+                          "type": "boolean"
+                        },
                         "propertyPicker": {
                           "type": [
                             "null",
                             "string"
                           ]
-                        },
-                        "selectorQueryType": {
-                          "$ref": "#/components/schemas/ProcessAction/anyOf/15/definitions/SelectorQueryType"
                         },
                         "cleaningRegex": {
                           "type": "string"
@@ -6138,9 +7060,6 @@
                         },
                         "formatText": {
                           "type": "string"
-                        },
-                        "extractImages": {
-                          "type": "boolean"
                         }
                       }
                     }
@@ -6343,6 +7262,69 @@
                 {
                   "type": "object",
                   "additionalProperties": false
+                }
+              ]
+            },
+            {
+              "title": "CombineValuesProcess",
+              "definitions": {
+                "ProcessAction": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ProcessAction/anyOf/18/definitions/MongoBaseDocument"
+                    },
+                    {
+                      "type": "object",
+                      "x-abstract": true,
+                      "additionalProperties": false,
+                      "properties": {
+                        "key": {
+                          "type": "string"
+                        },
+                        "mustExists": {
+                          "type": "boolean"
+                        },
+                        "destKey": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                },
+                "MongoBaseDocument": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "_t": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ProcessAction/anyOf/18/definitions/ProcessAction"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "keySources": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "sparator": {
+                      "type": "string"
+                    }
+                  }
                 }
               ]
             }
@@ -6589,6 +7571,7 @@
                 },
                 "topicChangedSelectors": {
                   "type": "array",
+                  "default": [],
                   "items": {
                     "$ref": "#/components/schemas/NewCrawlerSelector"
                   }
@@ -6601,6 +7584,7 @@
                 },
                 "excludedTopicUrls": {
                   "type": "array",
+                  "default": [],
                   "items": {
                     "type": "string"
                   }
@@ -6612,6 +7596,9 @@
                       "$ref": "#/components/schemas/WebNodeType"
                     }
                   ]
+                },
+                "shouldThrowExceptionOnEmptyPages": {
+                  "type": "boolean"
                 }
               }
             }
@@ -6637,17 +7624,17 @@
           "type": "string",
           "description": "",
           "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
             "url": {
               "type": "integer",
               "format": "int32",
               "nullable": false
             },
             "html": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "value__": {
               "type": "integer",
               "format": "int32",
               "nullable": false
@@ -6677,17 +7664,22 @@
                 "categoryUrlSelector": {
                   "$ref": "#/components/schemas/NewCrawlerSelector"
                 },
+                "topicContainerSelector": {
+                  "$ref": "#/components/schemas/NewCrawlerSelector"
+                },
                 "categoryKeyRegex": {
                   "type": "string"
                 },
                 "excludedCategoryUrls": {
                   "type": "array",
+                  "default": [],
                   "items": {
                     "type": "string"
                   }
                 },
                 "extraCategoryUrls": {
                   "type": "array",
+                  "default": [],
                   "items": {
                     "type": "string"
                   }
@@ -6723,6 +7715,9 @@
                       "$ref": "#/components/schemas/NewCrawlerSelector"
                     }
                   ]
+                },
+                "shouldThrowExceptionOnEmptyPages": {
+                  "type": "boolean"
                 }
               }
             }
@@ -6746,27 +7741,64 @@
             }
           }
         },
+        "CdnIndexingSettings": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/CrawlerBaseConfig"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "cdnActions": {
+                  "type": "array",
+                  "default": [],
+                  "items": {
+                    "$ref": "#/components/schemas/DriverAction"
+                  }
+                },
+                "cdnIndexAfterRequestLogic": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AfterRequestLogic"
+                    }
+                  ]
+                },
+                "validHosts": {
+                  "type": "array",
+                  "default": [],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "cdnImageUrlOverride": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
         "ImagesManagerConfig": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "crawlerTitle": {
-              "type": "string"
-            },
             "scrapeInlineImages": {
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
             "scrapeLinkedImages": {
-              "type": "boolean"
+              "type": "boolean",
+              "default": true
             },
-            "disableScreenshotDownload": {
-              "type": "boolean"
-            },
-            "disableStreamDownload": {
-              "type": "boolean"
-            },
-            "dataContainerSelector": {
-              "$ref": "#/components/schemas/NewCrawlerSelector"
+            "imageDownloadSettings": {
+              "default": {
+                "DisableAttachedStreamDownload": false,
+                "DisableInlineStreamDownload": false,
+                "DisableAttachedScreenshotDownload": false,
+                "DisableInlineScreenshotDownload": false
+              },
+              "$ref": "#/components/schemas/ImageDownloadSettings"
             },
             "attachmentsSelector": {
               "nullable": true,
@@ -6794,7 +7826,25 @@
             }
           }
         },
-        "AuthenticationSettings": {
+        "ImageDownloadSettings": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disableAttachedStreamDownload": {
+              "type": "boolean"
+            },
+            "disableInlineStreamDownload": {
+              "type": "boolean"
+            },
+            "disableAttachedScreenshotDownload": {
+              "type": "boolean"
+            },
+            "disableInlineScreenshotDownload": {
+              "type": "boolean"
+            }
+          }
+        },
+        "AuthSettingsTab": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -6871,13 +7921,12 @@
               "type": "integer",
               "format": "int32"
             },
-            "runningMode": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IndexerRunningMode"
-                }
-              ]
+            "runningModes": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "$ref": "#/components/schemas/IndexerRunningMode"
+              }
             },
             "extraFields": {
               "type": "object",
@@ -6903,6 +7952,12 @@
               "additionalProperties": false,
               "properties": {
                 "loginActions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DriverAction"
+                  }
+                },
+                "registerActions": {
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/DriverAction"
@@ -6943,99 +7998,148 @@
                 },
                 "blockedUserIndicators": {
                   "type": "array",
+                  "default": [],
                   "nullable": true,
                   "items": {
                     "$ref": "#/components/schemas/Indicator"
                   }
+                },
+                "registerUrl": {
+                  "type": "string"
+                },
+                "generateUser": {
+                  "type": "boolean"
                 }
               }
             }
           ]
         },
-        "WebServiceSettings": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "sleepBetweenRequestsSec": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": true
+        "WebServiceConfig": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/CrawlerBaseConfig"
             },
-            "requestTimeoutSec": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": true
-            },
-            "proxyType": {
-              "$ref": "#/components/schemas/ProxyType"
-            },
-            "proxyId": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": true
-            },
-            "userAgent": {
-              "type": "string",
-              "nullable": true
-            },
-            "webPageExpectedType": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/WebNodeType"
-                }
-              ]
-            },
-            "isUsingWebDriver": {
-              "type": "boolean"
-            },
-            "visualizationOptions": {
-              "$ref": "#/components/schemas/VisualizationOptions"
-            },
-            "stringsToCensor": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "waitUntilFlags": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/WaitUntilNavigation"
-              }
-            },
-            "cookies": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/Cookie"
-              }
-            },
-            "headers": {
+            {
               "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "urlParams": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "clientCertificates": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/ClientCertificatesSettings"
+              "additionalProperties": false,
+              "properties": {
+                "sleepBetweenRequestsSec": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "softRequestLimit": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "requestTimeoutSec": {
+                  "type": "integer",
+                  "format": "int32",
+                  "default": 60
+                },
+                "proxyType": {
+                  "default": 5,
+                  "$ref": "#/components/schemas/ProxyType"
+                },
+                "proxyId": {
+                  "type": "integer",
+                  "format": "int32",
+                  "nullable": true
+                },
+                "userAgent": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "webPageExpectedType": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/WebNodeType"
+                    }
+                  ]
+                },
+                "visualizationOptions": {
+                  "$ref": "#/components/schemas/VisualizationOptions"
+                },
+                "stringsToCensor": {
+                  "type": "array",
+                  "default": [],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "waitUntilFlags": {
+                  "type": "array",
+                  "default": [
+                    2,
+                    0,
+                    1
+                  ],
+                  "items": {
+                    "$ref": "#/components/schemas/WaitUntilNavigation"
+                  }
+                },
+                "cookies": {
+                  "type": "array",
+                  "default": [],
+                  "items": {
+                    "$ref": "#/components/schemas/Cookie"
+                  }
+                },
+                "headers": {
+                  "type": "object",
+                  "default": {},
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                },
+                "urlParams": {
+                  "type": "object",
+                  "default": {},
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                },
+                "clientCertificates": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ClientCertificatesSettings"
+                    }
+                  ]
+                },
+                "disableJavaScript": {
+                  "type": "boolean"
+                },
+                "browserType": {
+                  "default": 0,
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Product"
+                    }
+                  ]
+                },
+                "browserRevision": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "isUsingWebDriver": {
+                  "type": "boolean",
+                  "default": true
                 }
-              ]
+              }
             }
-          }
+          ]
         },
         "ProxyType": {
           "type": "string",
           "description": "",
           "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
             "none": {
               "type": "integer",
               "format": "int32",
@@ -7080,11 +8184,6 @@
               "type": "integer",
               "format": "int32",
               "nullable": false
-            },
-            "value__": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
             }
           },
           "x-enumNames": [
@@ -7110,10 +8209,38 @@
             "Unknown"
           ]
         },
+        "Proxy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "ip": {
+              "type": "string"
+            },
+            "port": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
         "WaitUntilNavigation": {
           "type": "string",
           "description": "",
           "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
             "load": {
               "type": "integer",
               "format": "int32",
@@ -7130,11 +8257,6 @@
               "nullable": false
             },
             "networkidle2": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "value__": {
               "type": "integer",
               "format": "int32",
               "nullable": false
@@ -7158,7 +8280,8 @@
           "additionalProperties": false,
           "properties": {
             "comment": {
-              "type": "string"
+              "type": "string",
+              "default": ""
             },
             "commentUri": {
               "type": "string",
@@ -7172,7 +8295,8 @@
               "type": "boolean"
             },
             "domain": {
-              "type": "string"
+              "type": "string",
+              "default": ""
             },
             "expired": {
               "type": "boolean"
@@ -7182,23 +8306,28 @@
               "format": "date-time"
             },
             "name": {
-              "type": "string"
+              "type": "string",
+              "default": ""
             },
             "path": {
-              "type": "string"
+              "type": "string",
+              "default": ""
             },
             "port": {
-              "type": "string"
+              "type": "string",
+              "default": ""
             },
             "secure": {
               "type": "boolean"
             },
             "timeStamp": {
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "default": "2021-06-22T07:55:02.0252906+00:00"
             },
             "value": {
-              "type": "string"
+              "type": "string",
+              "default": ""
             },
             "version": {
               "type": "integer",
@@ -7218,6 +8347,35 @@
               "type": "string"
             }
           }
+        },
+        "Product": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "chrome": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "firefox": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "Chrome",
+            "Firefox"
+          ],
+          "enum": [
+            "Chrome",
+            "Firefox"
+          ]
         },
         "AttributesExample": {
           "type": "object",
@@ -7280,6 +8438,32 @@
             }
           }
         },
+        "NewOnlyMappingSettings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "newOnlyMapping"
+          ],
+          "properties": {
+            "newOnlyMapping": {
+              "$ref": "#/components/schemas/DeepMappingSettings",
+              "x-ignore-inherit": true
+            }
+          }
+        },
+        "NewOnlyIndexingSettings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "newOnlyIndexing"
+          ],
+          "properties": {
+            "newOnlyIndexing": {
+              "$ref": "#/components/schemas/IndexingSettings",
+              "x-ignore-inherit": true
+            }
+          }
+        },
         "GetTabsReq": {
           "type": "object",
           "additionalProperties": false,
@@ -7298,6 +8482,7 @@
             },
             "runningModes": {
               "type": "array",
+              "default": [],
               "items": {
                 "$ref": "#/components/schemas/IndexerRunningMode"
               }
@@ -7401,98 +8586,18 @@
           "type": "object",
           "additionalProperties": false,
           "required": [
-            "key",
-            "botType",
-            "sourceType"
+            "key"
           ],
           "properties": {
             "key": {
               "type": "string",
               "minLength": 1
             },
-            "botType": {
-              "$ref": "#/components/schemas/BotnetBotType"
-            },
-            "sourceType": {
-              "$ref": "#/components/schemas/BotnetSourceType"
-            },
             "botId": {
               "type": "string",
               "nullable": true
             }
           }
-        },
-        "BotnetBotType": {
-          "type": "string",
-          "description": "",
-          "properties": {
-            "azor": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "raccoon": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "smoke": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "vidar": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "taurus": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "value__": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            }
-          },
-          "x-enumNames": [
-            "Azor",
-            "Raccoon",
-            "Smoke",
-            "Vidar",
-            "Taurus"
-          ],
-          "enum": [
-            "Azor",
-            "Raccoon",
-            "Smoke",
-            "Vidar",
-            "Taurus"
-          ]
-        },
-        "BotnetSourceType": {
-          "type": "string",
-          "description": "",
-          "properties": {
-            "russainMarket": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            },
-            "value__": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": false
-            }
-          },
-          "x-enumNames": [
-            "RussainMarket"
-          ],
-          "enum": [
-            "RussainMarket"
-          ]
         },
         "BotUploaderReq": {
           "type": "object",
@@ -7519,20 +8624,90 @@
             "botId": {
               "type": "string",
               "nullable": true
-            }
-          }
-        },
-        "ValueTupleOfBotParserReqAndBoolean": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "item1": {
-              "$ref": "#/components/schemas/BotParserReq"
             },
-            "item2": {
+            "withoutParse": {
               "type": "boolean"
             }
           }
+        },
+        "BotnetBotType": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "azoRult": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "raccoon": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "smoke": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "vidar": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "taurus": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "redline": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "AZORult",
+            "Raccoon",
+            "Smoke",
+            "Vidar",
+            "Taurus",
+            "Redline"
+          ],
+          "enum": [
+            "AZORult",
+            "Raccoon",
+            "Smoke",
+            "Vidar",
+            "Taurus",
+            "Redline"
+          ]
+        },
+        "BotnetSourceType": {
+          "type": "string",
+          "description": "",
+          "properties": {
+            "russainMarket": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "value__": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            }
+          },
+          "x-enumNames": [
+            "RussainMarket"
+          ],
+          "enum": [
+            "RussainMarket"
+          ]
         },
         "ElasticsearchIndex": {
           "type": "string",
@@ -7618,6 +8793,11 @@
               "format": "int32",
               "nullable": false
             },
+            "compromisedAccountsFromData": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
             "digital_assets": {
               "type": "integer",
               "format": "int32",
@@ -7668,6 +8848,21 @@
               "format": "int32",
               "nullable": false
             },
+            "subsInstantMessagingTelegram": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "subsInstantMessagingDiscord": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
+            "subsInstantMessaging": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": false
+            },
             "value__": {
               "type": "integer",
               "format": "int32",
@@ -7691,6 +8886,7 @@
             "UASMarketData",
             "SocialData",
             "TelegramMetaData",
+            "CompromisedAccountsFromData",
             "digital_assets",
             "digital_assets_recon",
             "hacking_discussions",
@@ -7700,7 +8896,10 @@
             "network_vulnerabilities",
             "credit_cards",
             "SubsDldSourceCode",
-            "SubsBotnets"
+            "SubsBotnets",
+            "SubsInstantMessagingTelegram",
+            "SubsInstantMessagingDiscord",
+            "SubsInstantMessaging"
           ],
           "enum": [
             "data",
@@ -7719,6 +8918,7 @@
             "UASMarketData",
             "SocialData",
             "TelegramMetaData",
+            "CompromisedAccountsFromData",
             "digital_assets",
             "digital_assets_recon",
             "hacking_discussions",
@@ -7728,7 +8928,10 @@
             "network_vulnerabilities",
             "credit_cards",
             "SubsDldSourceCode",
-            "SubsBotnets"
+            "SubsBotnets",
+            "SubsInstantMessagingTelegram",
+            "SubsInstantMessagingDiscord",
+            "SubsInstantMessaging"
           ]
         },
         "RadarkManualIndexDataUploaderReq": {
@@ -7894,6 +9097,7 @@
             "indexedDate": {
               "type": "string",
               "format": "date-time",
+              "default": "2021-06-22T07:55:02.0122407Z",
               "nullable": true
             },
             "dataFileKey": {
